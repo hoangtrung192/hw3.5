@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@meshsdk/core": "^1.8.9"
+  }
+}
