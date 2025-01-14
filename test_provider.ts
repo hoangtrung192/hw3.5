@@ -5,7 +5,7 @@ import fs from 'node:fs'
 //     apiKey: 'previewHZApug3UnrJRVchVYzOu57hKu8PucW5o', //ten du an cua blockfrost
 //     turboSubmit: true, //true tăng tốc độ và không thông qua backend kiểm tra và ngược lạilại
 // });
-const blockchainProvider = new BlockfrostProvider('previewHZApug3UnrJRVchVYzOu57hKu8PucW5o');
+export const blockchainProvider = new BlockfrostProvider('previewHZApug3UnrJRVchVYzOu57hKu8PucW5o');
 export const wallet = new MeshWallet({
     networkId: 0, // Mạng Cardano: 0 là Testnet (Preview)
     fetcher: blockchainProvider, // Provider để truy vấn blockchain
