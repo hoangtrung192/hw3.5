@@ -1,11 +1,12 @@
-import { MaestroProvider, MeshWallet } from '@meshsdk/core';
+import { MaestroProvider, MeshWallet , BlockfrostProvider} from '@meshsdk/core';
 import fs from 'node:fs'
-const blockchainProvider = new MaestroProvider({
-    network: 'Preview', //network cua vi dang su dung
-    apiKey: 'previewHZApug3UnrJRVchVYzOu57hKu8PucW5o', //ten du an cua blockfrost
-    turboSubmit: false, //true tăng tốc độ và không thông qua backend kiểm tra và ngược lạilại
-});
-const wallet = new MeshWallet({
+// const blockchainProvider = new MaestroProvider({
+//     network: 'Preview', //network cua vi dang su dung
+//     apiKey: 'previewHZApug3UnrJRVchVYzOu57hKu8PucW5o', //ten du an cua blockfrost
+//     turboSubmit: true, //true tăng tốc độ và không thông qua backend kiểm tra và ngược lạilại
+// });
+const blockchainProvider = new BlockfrostProvider('previewHZApug3UnrJRVchVYzOu57hKu8PucW5o');
+export const wallet = new MeshWallet({
     networkId: 0, // Mạng Cardano: 0 là Testnet (Preview)
     fetcher: blockchainProvider, // Provider để truy vấn blockchain
     submitter: blockchainProvider, // Provider để gửi giao dịch
@@ -20,17 +21,24 @@ const wallet = new MeshWallet({
         ], // Danh sách các từ mnemonic
     },
 });
-
-console.log("Dia chi cua vi : ", wallet.getChangeAddress());
-// fs.writeFileSync('owner.addr', wallet.getChangeAddress());
-async function main() {
+// (async () => {
+//     try {
+//         const lovelace = await wallet.getLovelace();
+//         console.log("Lovelace: ", lovelace);
+//     } catch (error) {
+//         console.error("Đã xảy ra lỗi:", error);
+//     }
+// })();
+// console.log("Dia chi cua vi : ", wallet.getChangeAddress());
+// // fs.writeFileSync('owner.addr', wallet.getChangeAddress());
+// async function main() {
   
-    // Lấy danh sách các địa chỉ chưa sử dụng
-    const balance =  wallet.getBalance();
-    console.log("Số dư ví :  ", balance);
-}
+//     // Lấy danh sách các địa chỉ chưa sử dụng
+//     const balance =  wallet.getBalance();
+//     console.log("Số dư ví :  ", balance);
+// }
 
-main().catch((error) => {
-    console.error("Đã xảy ra lỗi:", error);
-});
+// main().catch((error) => {
+//     console.error("Đã xảy ra lỗi:", error);
+// });
 //npx tsx test_provider.ts
