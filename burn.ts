@@ -18,7 +18,7 @@ const unsignedTx = await txBuilder
     .selectUtxosFrom(utxos)
     .complete();
 const signedTx = await wallet.signTx(unsignedTx);
-const txHash = wallet.submitTx(signedTx);
+const txHash = await wallet.submitTx(signedTx);
 console.log("Burn xong co txHash la : ", txHash);
 }
 main();
