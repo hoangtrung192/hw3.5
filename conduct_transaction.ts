@@ -2,12 +2,13 @@ import {BrowserWallet,Transaction, Wallet, BlockfrostProvider, MeshTxBuilder, Wa
  from "@meshsdk/core";
 import {wallet, blockchainProvider} from "./test_provider"
 //xay dung va gui giao dich len blockchain
-async function main(){
-const txBuilder = new MeshTxBuilder({
+export const txBuilder = new MeshTxBuilder({
     fetcher: blockchainProvider,
     submitter: blockchainProvider,
     verbose: true, //true -> thong tin chi tiet ve giao dich
 });
+async function main(){
+
 const changeAddress = await wallet.getChangeAddress();
 const utxos = await wallet.getUtxos();
 const unsignedTx = await txBuilder

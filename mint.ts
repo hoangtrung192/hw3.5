@@ -21,7 +21,7 @@ async function main() {
         description: "mint by mesh and long",
     };
     const policyID = resolveScriptHash(forgingScript); //chuyen doi 1 cai script thanh policyID dinh danh
-    const tokenName = "NFT demo";
+    const tokenName = "NFT demo 22";
     const tokenNameHex = stringToHex(tokenName);
     const metadata = { [policyID]: { [tokenName]: { ...demo } } };
     const unsignedTx = await txBuilder
@@ -33,6 +33,7 @@ async function main() {
         .complete();
     const signedTx = await wallet.signTx(unsignedTx);
     const txHash = await wallet.submitTx(signedTx);
+    console.log("txhash : ", txHash);
 }
 main();
 //npx tsx mint.ts
