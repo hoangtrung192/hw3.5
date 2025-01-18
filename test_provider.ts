@@ -21,6 +21,7 @@ export const wallet = new MeshWallet({
         ], // Danh sách các từ mnemonic
     },
 });
+
 // (async () => {
 //     try {
 //         const lovelace = await wallet.getLovelace();
