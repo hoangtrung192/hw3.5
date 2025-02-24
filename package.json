@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "@meshsdk/contract": "^1.8.12",
-    "@meshsdk/core": "^1.8.9"
+    "@meshsdk/contract": "^1.7.20",
+    "@meshsdk/core": "^1.7.20",
+    "cbor": "^10.0.3"
   }
 }

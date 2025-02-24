@@ -1,8 +1,20 @@
-import { Asset, deserializeAddress, mConStr0, MeshTxBuilder, MeshValue } from "@meshsdk/core";
+import {
+  Asset,
+  deserializeAddress,
+  mConStr0,
+  MeshTxBuilder,
+  MeshValue,
+} from "@meshsdk/core";
 import { MeshVestingContract } from "@meshsdk/contract";
-import { getScript, getTxBuilder, wallet, getWalletInfoForTx, blockchainProvider } from "./common";
-async function main(){
-const assets: Asset[] = [
+import {
+  getScript,
+  getTxBuilder,
+  wallet,
+  blockchainProvider,
+  getWalletInfoForTx,
+} from "./common";
+async function main() {
+  const assets: Asset[] = [
     {
       unit: "lovelace",
       quantity: "20000000",
@@ -13,30 +25,54 @@ const assets: Asset[] = [
     //   quantity: "1",
     // },
   ];
+  const { scriptAddr, scriptCbor } = getScript();
   const value = MeshValue.fromAssets(assets);
   console.log(value);
   const meshTxBuilder = new MeshTxBuilder({
     fetcher: blockchainProvider,
     submitter: blockchainProvider,
   });
-  
-  const contract = new MeshVestingContract({
-    mesh: meshTxBuilder,
+  const txBuilder = new MeshTxBuilder({
     fetcher: blockchainProvider,
-    wallet: wallet,
-    networkId: 0,
+    submitter: blockchainProvider,
   });
-const lockUntilTimeStamp = new Date();
-lockUntilTimeStamp.setMinutes(lockUntilTimeStamp.getMinutes() + 100);
-const beneficiary = "addr_test1qp32dhvj6nmhn8qjce8vsv3s0x70rrth7udxy32a7lm5yl7vchlp2ahqwyyfpv4l7fszccrngx2vcmmu5x3d3t3cy2uqpd7ewx";
+  console.log(wallet.getChangeAddress());
+  // const contract = new MeshVestingContract({
+  //   mesh: meshTxBuilder,
+  //   fetcher: blockchainProvider,
+  //   wallet: wallet,
+  //   networkId: 0,
+  // });
 
-const tx = await contract.depositFund(
-    assets,
-    lockUntilTimeStamp.getTime(),
-    beneficiary,
-  );
-  const signedTx = await wallet.signTx(tx);
+  const lockUntilTimeStamp = new Date().getMinutes() + 1;
+
+
+  const beneficiary =
+  "addr_test1qp32dhvj6nmhn8qjce8vsv3s0x70rrth7udxy32a7lm5yl7vchlp2ahqwyyfpv4l7fszccrngx2vcmmu5x3d3t3cy2uqpd7ewx";
+
+  // const tx = await contract.depositFund(
+  //     assets,
+  //     lockUntilTimeStamp.getTime(),
+  //     beneficiary,
+  //   );
+
+  const { utxos, walletAddress, collateral } = await getWalletInfoForTx(wallet);
+  const { pubKeyHash: ownerPubKeyHash } = deserializeAddress(walletAddress);
+  const { pubKeyHash: beneficiaryPubKeyHash } = deserializeAddress(beneficiary);
+
+  await txBuilder
+    .txOut(scriptAddr, assets)
+    .txOutInlineDatumValue(
+      mConStr0([lockUntilTimeStamp, ownerPubKeyHash, beneficiaryPubKeyHash])
+    )
+    .changeAddress(walletAddress)
+    .selectUtxosFrom(utxos)
+    .complete();
+
+  const unsignedTx = txBuilder.txHex;
+  const signedTx = await wallet.signTx(unsignedTx);
   const txHash = await wallet.submitTx(signedTx);
-  console.log(txHash);
+  console.log("txhash: " + txHash);
+  console.log("Khoa");
 }
 main();
