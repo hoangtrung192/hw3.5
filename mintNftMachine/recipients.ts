@@ -1,0 +1,5 @@
+export const recipients: { [recipient: string]: string[] } = {
+    "addr_test1qp32dhvj6nmhn8qjce8vsv3s0x70rrth7udxy32a7lm5yl7vchlp2ahqwyyfpv4l7fszccrngx2vcmmu5x3d3t3cy2uqpd7ewx":
+      ["MeshToken01", "MeshToken02", "MeshToken03"]
+     
+  };
