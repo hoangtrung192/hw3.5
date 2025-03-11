@@ -16,7 +16,7 @@ async function main() {
     const utxos = await wallet.getUtxos();
     const demo = {
         name: "NFT demo",
-        image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
+        image: "ipfs://bafkreigptepn2skanxmg5proqwdv6flcfl24udppoe5lcbqukaekukzgwi",
         mediaType: "image/jpg",
         description: "mint by mesh and long",
     };
@@ -27,7 +27,8 @@ async function main() {
     const unsignedTx = await txBuilder
         .mint("1", policyID, tokenNameHex)
         .mintingScript(forgingScript)
-        .metadataValue(721, metadata) //chuan theo cardano
+        
+        .metadataValue("721", metadata) //chuan theo cardano
         .changeAddress(changeAddress)
         .selectUtxosFrom(utxos)
         .complete();

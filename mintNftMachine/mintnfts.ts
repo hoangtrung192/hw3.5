@@ -11,6 +11,7 @@ import { metadata } from "./metadata";
 import { recipients } from "./recipients";
 
 async function main() {
+    
     const changeAddress = await wallet.getChangeAddress();
     const forgingScript = ForgeScript.withOneSignature(changeAddress); 
 

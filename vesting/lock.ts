@@ -4,6 +4,7 @@ import {
   mConStr0,
   MeshTxBuilder,
   MeshValue,
+  Transaction,
 } from "@meshsdk/core";
 import { MeshVestingContract } from "@meshsdk/contract";
 import {
@@ -19,12 +20,20 @@ async function main() {
       unit: "lovelace",
       quantity: "20000000",
     },
+ 
+    // {
+    //   unit: 'e9c331248ac81d8d0f2a10882e0b3b90eb54faf303113edca17d09ec4e46542064656d6f203232',
+    //   quantity: '1',
+    // }
+    
+    
     // {
     //   unit: "e517dddf607a2dca4a28223885af5af423618f3c512930043563b885",
 
     //   quantity: "1",
     // },
   ];
+
   const { scriptAddr, scriptCbor } = getScript();
   const value = MeshValue.fromAssets(assets);
   console.log(value);
@@ -36,7 +45,7 @@ async function main() {
     fetcher: blockchainProvider,
     submitter: blockchainProvider,
   });
-  console.log(wallet.getChangeAddress());
+
   // const contract = new MeshVestingContract({
   //   mesh: meshTxBuilder,
   //   fetcher: blockchainProvider,
@@ -60,16 +69,23 @@ async function main() {
   const { pubKeyHash: ownerPubKeyHash } = deserializeAddress(walletAddress);
   const { pubKeyHash: beneficiaryPubKeyHash } = deserializeAddress(beneficiary);
 
+  const x = 674;
+
   await txBuilder
     .txOut(scriptAddr, assets)
     .txOutInlineDatumValue(
       mConStr0([lockUntilTimeStamp, ownerPubKeyHash, beneficiaryPubKeyHash])
     )
+    .metadataValue('674', {msg:['abc', 'abc']})
     .changeAddress(walletAddress)
+    
     .selectUtxosFrom(utxos)
     .complete();
 
   const unsignedTx = txBuilder.txHex;
+  const tx = new Transaction({initiator: wallet});
+  
+
   const signedTx = await wallet.signTx(unsignedTx);
   const txHash = await wallet.submitTx(signedTx);
   console.log("txhash: " + txHash);

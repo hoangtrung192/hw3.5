@@ -1,12 +1,12 @@
 {
   "preamble": {
-    "title": "meshjs/vesting",
-    "description": "Aiken contracts for project 'meshjs/vesting'",
+    "title": "long/vesting",
+    "description": "Aiken contracts for project 'long/vesting'",
     "version": "0.0.0",
     "plutusVersion": "v3",
     "compiler": {
       "name": "Aiken",
-      "version": "v1.1.0+unknown"
+      "version": "v1.1.0+be31a7c"
     },
     "license": "Apache-2.0"
   },
@@ -16,11 +16,11 @@
       "datum": {
         "title": "datum_opt",
         "schema": {
-          "$ref": "#/definitions/vesting~1VestingDatum"
+          "$ref": "#/definitions/vesting~1Datum"
         }
       },
       "redeemer": {
-        "title": "_redeemer",
+        "title": "redeemer",
         "schema": {
           "$ref": "#/definitions/Data"
         }
@@ -35,6 +35,10 @@
     }
   ],
   "definitions": {
+    "AssetName": {
+      "title": "AssetName",
+      "dataType": "bytes"
+    },
     "ByteArray": {
       "dataType": "bytes"
     },
@@ -45,30 +49,73 @@
     "Int": {
       "dataType": "integer"
     },
-    "vesting/VestingDatum": {
-      "title": "VestingDatum",
+    "PolicyId": {
+      "title": "PolicyId",
+      "dataType": "bytes"
+    },
+    "VerificationKeyHash": {
+      "title": "VerificationKeyHash",
+      "dataType": "bytes"
+    },
+    "vesting/Asset": {
+      "title": "Asset",
       "anyOf": [
         {
-          "title": "VestingDatum",
+          "title": "Asset",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "title": "policy_id",
+              "$ref": "#/definitions/PolicyId"
+            },
+            {
+              "title": "token_name",
+              "$ref": "#/definitions/AssetName"
+            },
+            {
+              "title": "amt",
+              "$ref": "#/definitions/Int"
+            }
+          ]
+        }
+      ]
+    },
+    "vesting/Datum": {
+      "title": "Datum",
+      "anyOf": [
+        {
+          "title": "Datum",
           "dataType": "constructor",
           "index": 0,
           "fields": [
             {
               "title": "lock_until",
-              "description": "POSIX time in milliseconds, e.g. 1672843961000",
               "$ref": "#/definitions/Int"
             },
             {
               "title": "owner",
               "description": "Owner's credentials",
-              "$ref": "#/definitions/ByteArray"
+              "$ref": "#/definitions/VerificationKeyHash"
             },
             {
               "title": "beneficiary",
               "description": "Beneficiary's credentials",
+              "$ref": "#/definitions/VerificationKeyHash"
+            },
+            {
+              "title": "message",
               "$ref": "#/definitions/ByteArray"
+            },
+            {
+              "title": "nft",
+              "$ref": "#/definitions/vesting~1Asset"
+            },
+            {
+              "title": "locked_ada",
+              "$ref": "#/definitions/Int"
             }
-          ] 
+          ]
         }
       ]
     }

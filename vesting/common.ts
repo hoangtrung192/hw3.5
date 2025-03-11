@@ -1,4 +1,3 @@
-import fs from "node:fs";
 import {
   BlockfrostProvider,
   MeshTxBuilder,
@@ -21,12 +20,12 @@ export const wallet = new MeshWallet({
     submitter: blockchainProvider, // Provider để gửi giao dịch
     key: {
         type: 'mnemonic', // loai 24 ki tu
-        // words: [
-        //   "illness", "tomato", "organ", "credit", "hybrid", "path", "slight", "bomb", "allow", "media", "credit", "virtual", "uncle", "blast", "type", "very", "certain", "join", "feed", "repeat", "elbow", "place", "aim", "oblige"
-        // ], // Danh sách các từ mnemonic - beneficiary
         words: [
-          "spoil", "maid", "general", "expire", "kidney", "deal", "awful", "clip", "fragile", "kitchen", "reason", "crater", "attitude", "grain", "bitter", "bag", "mouse", "reform", "cactus", "spot", "vital", "sea", "same", "salon"
-        ]
+          "illness", "tomato", "organ", "credit", "hybrid", "path", "slight", "bomb", "allow", "media", "credit", "virtual", "uncle", "blast", "type", "very", "certain", "join", "feed", "repeat", "elbow", "place", "aim", "oblige"
+        ], // Danh sách các từ mnemonic - beneficiary
+        // words: [
+        //   "spoil", "maid", "general", "expire", "kidney", "deal", "awful", "clip", "fragile", "kitchen", "reason", "crater", "attitude", "grain", "bitter", "bag", "mouse", "reform", "cactus", "spot", "vital", "sea", "same", "salon"
+        // ]
     },
 });
 console.log(wallet.getChangeAddress());
@@ -41,7 +40,7 @@ export function getScript() {
   }
  
   const scriptAddr = serializePlutusScript(
-    { code: scriptCbor, version: "V3" },
+    { code: scriptCbor, version: "V3" },undefined, 0
   ).address;;
   
  
@@ -53,6 +52,7 @@ export function getTxBuilder() {
   return new MeshTxBuilder({
     fetcher: blockchainProvider,
     submitter: blockchainProvider,
+    verbose:true,
   });
 }
  

@@ -12,6 +12,7 @@ import {
   SLOT_CONFIG_NETWORK,
   unixTimeToEnclosingSlot,
   UTxO,
+  Transaction
 } from "@meshsdk/core";
 import { MeshVestingContract, VestingDatum } from "@meshsdk/contract";
 import {
@@ -31,7 +32,7 @@ async function main() {
     });
 
     const txHash =
-      "a6d1ec583cc606b1a030515532c4557e99e9add7e76c4057d9834f1fc9e13c5d";
+      "71a15a51024826e75a894830af0d6ed8f2b1de81e5574a1c7961562456854d3b";
      //process.argv[2];
     const contractutxos = await blockchainProvider.fetchUTxOs(txHash);
     //console.log("Contract UTXOs:", contractutxos);
@@ -112,7 +113,7 @@ async function main() {
     console.log("Building transaction...");
     //const signerHash = deserializeAddress(walletAddress).pubKeyHash;
     await txBuilder
-      .spendingPlutusScript("V3")
+      .spendingPlutusScriptV3()
       .txIn(
         vestingUtxo.input.txHash,
         vestingUtxo.input.outputIndex,
@@ -127,26 +128,26 @@ async function main() {
       //.txInRedeemerValue(mConStr1([]))
      //.txInDatumValue(mConStr0([signerHash]))
       .txInScript(scriptCbor)
-      .txOut(walletAddress, assets)
+      .txOut(walletAddress, [])
       .txInCollateral(
         collateralInput.txHash,
         collateralInput.outputIndex,
         collateralOutput.amount,
         collateralOutput.address
       )
-      
       .invalidBefore(invalidBefore)
       .requiredSignerHash(pubKeyHash)
       .changeAddress(walletAddress)
       .selectUtxosFrom(utxos)
-      //.setNetwork("preprod")
+      .metadataValue('674', {msg:['abc', 'abc']})
+      .setNetwork("preprod")
       .complete();
 
     console.log("Transaction built successfully.");
 
     const unsignedTx = txBuilder.txHex;
     console.log("Unsigned Transaction:", unsignedTx);
-
+  
     const signedTx = await wallet.signTx(unsignedTx, true);
     console.log("Signed Transaction:", signedTx);
 

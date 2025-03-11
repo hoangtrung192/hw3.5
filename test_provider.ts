@@ -1,45 +1,32 @@
-import { MaestroProvider, MeshWallet , BlockfrostProvider} from '@meshsdk/core';
-import fs from 'node:fs'
-// const blockchainProvider = new MaestroProvider({
-//     network: 'Preview', //network cua vi dang su dung
-//     apiKey: 'previewHZApug3UnrJRVchVYzOu57hKu8PucW5o', //ten du an cua blockfrost
-//     turboSubmit: true, //true tăng tốc độ và không thông qua backend kiểm tra và ngược lạilại
-// });
-export const blockchainProvider = new BlockfrostProvider('previewHZApug3UnrJRVchVYzOu57hKu8PucW5o');
-export const wallet = new MeshWallet({
-    networkId: 0, // Mạng Cardano: 0 là Testnet (Preview)
-    fetcher: blockchainProvider, // Provider để truy vấn blockchain
-    submitter: blockchainProvider, // Provider để gửi giao dịch
-    key: {
-        type: 'mnemonic', // loai 24 ki tu
-        words: [
-            "heart", "outdoor", "element", "clinic", "mushroom", 
-            "clap", "undo", "author", "clip", "upper", "silk", 
-            "combine", "trade", "illegal", "ship", "shoe", 
-            "woman", "witness", "green", "ketchup", "blame", 
-            "choice", "spice", "promote"
-        ], // Danh sách các từ mnemonic
-    },
-});
+import {
+    BlockfrostProvider,
+    MeshTxBuilder,
+    MeshWallet,
+    PlutusScript,
+    serializePlutusScript,
+    UTxO
+    ,resolvePlutusScriptAddress
+  } from "@meshsdk/core";
+  import { applyParamsToScript } from "@meshsdk/core-csl";
 
-// (async () => {
-//     try {
-//         const lovelace = await wallet.getLovelace();
-//         console.log("Lovelace: ", lovelace);
-//     } catch (error) {
-//         console.error("Đã xảy ra lỗi:", error);
-//     }
-// })();
-// console.log("Dia chi cua vi : ", wallet.getChangeAddress());
-// // fs.writeFileSync('owner.addr', wallet.getChangeAddress());
-// async function main() {
+  import { Script } from "node:vm";
+   
+  export const blockchainProvider = new BlockfrostProvider('preprod2DQWsQjqnzLW9swoBQujfKBIFyYILBiL');
+   
+  // wallet for signing transactions
+  export const wallet = new MeshWallet({
+      networkId: 0, // Mạng Cardano: 0 là Testnet (Preview, PreprodPreprod)
+      fetcher: blockchainProvider, // Provider để truy vấn blockchain
+      submitter: blockchainProvider, // Provider để gửi giao dịch
+      key: {
+          type: 'mnemonic', // loai 24 ki tu
+        //   words: [
+        //     "illness", "tomato", "organ", "credit", "hybrid", "path", "slight", "bomb", "allow", "media", "credit", "virtual", "uncle", "blast", "type", "very", "certain", "join", "feed", "repeat", "elbow", "place", "aim", "oblige"
+        //   ], // Danh sách các từ mnemonic - beneficiary
+          words: [
+            "spoil", "maid", "general", "expire", "kidney", "deal", "awful", "clip", "fragile", "kitchen", "reason", "crater", "attitude", "grain", "bitter", "bag", "mouse", "reform", "cactus", "spot", "vital", "sea", "same", "salon"
+          ]
+      },
+  });
+ 
   
-//     // Lấy danh sách các địa chỉ chưa sử dụng
-//     const balance =  wallet.getBalance();
-//     console.log("Số dư ví :  ", balance);
-// }
-
-// main().catch((error) => {
-//     console.error("Đã xảy ra lỗi:", error);
-// });
-//npx tsx test_provider.ts
