@@ -116,7 +116,8 @@ import {
           
       }),
     );
-    
+   // const data = await blockchainProvider.fetchAssetMetadata('d40ef252b8e94c27c61a4c9b23e0891a34c18cab62c442f455956687000de14048656c6c6f20576f726c64');
+ //   console.log(data);
     // Add platform fee payment             
     unsignedTx
       .txOut(exChange, [
@@ -160,14 +161,13 @@ import {
       const pubkeyExchange = deserializeAddress(exChange).pubKeyHash;
       const result = await updateTokens([
         {
-          assetName: "Hello World",
+          assetName: "Test",
           metadata:  {
-            name: "Hello World",
             _pk: userPubKeyHash,
             image: "ipfs://bafkreideqzlxt33hejgqhldmgzpkyy7d2fsfye5hb2vafn3ysyv6zuzwre",
             mediaType: "image/jpg",
-            description: "mai moi mint dc day:)) fuck you nft",
-            msg: "dung co dua anh Long update "
+            canbenh: "ung thu",
+           
           }
         }
       ]);

@@ -26,9 +26,9 @@ import {
   const BLOCKFROST_API_KEY = 'preprod2DQWsQjqnzLW9swoBQujfKBIFyYILBiL';
   const NETWORK_ID = 0; // 0 = Testnet (Preview, Preprod), 1 = Mainnet
   const PLATFORM_FEE = '1000000'; // 1 ADA in lovelace
-  const TOKEN_NAME = 'Hello World';
+  const TOKEN_NAME = 'Test';
   const MIN_ADA_WITH_TOKEN = '1500000'; // 1.5 ADA
-  const IMAGE_IPFS_HASH = 'ipfs://bafkreideqzlxt33hejgqhldmgzpkyy7d2fsfye5hb2vafn3ysyv6zuzwre';
+  const IMAGE_IPFS_HASH = 'ipfs://bafkreihia6lar2ofmpfyuwwmcog7gexlqvwbb2tuhezpouhi4xpvxjju4m';
   
   // Initialize blockchain provider
   const blockchainProvider = new BlockfrostProvider('preprod2DQWsQjqnzLW9swoBQujfKBIFyYILBiL');
@@ -71,14 +71,17 @@ import {
       
       // Define metadata for the token
       const tokenMetadata = {
-        name: TOKEN_NAME,
+        name: TOKEN_NAME + "DID",
         image: IMAGE_IPFS_HASH,
         mediaType: "image/jpg", 
-        description: "My first CIP68 token",
-        author: walletAddress // Required by validator
+        description: "My second  CIP68 token DID",
+        _pk: userPubKeyHash, // Required by validator
+        check: userPubKeyHash
       };
       
-      
+      const assets = blockchainProvider.fetchAssetAddresses(walletAddress);
+      console.log("asset : "+ assets);
+        
       // Get validator scripts
       console.log("Reading validators from blueprint...");
       const mintCompilecode = readValidator( "mint.mint.mint");
@@ -144,15 +147,8 @@ import {
           }
           
         ])
-        .txOutInlineDatumValue(metadataToCip68( {
-            name: "Hello World",
-            _pk:userPubKeyHash,
-            image: "ipfs://bafkreideqzlxt33hejgqhldmgzpkyy7d2fsfye5hb2vafn3ysyv6zuzwre",
-            mediaType: "image/jpg",
-            description: "mai moi mint dc :))",
-            msg: "dung co dua anh Long "
-          }))
-      
+        .txOutInlineDatumValue(metadataToCip68( tokenMetadata))
+        
       // Send user token to wallet
       .txOut(walletAddress, [
         {
@@ -160,6 +156,7 @@ import {
           quantity: "1"
         },   
       ])
+      
       
       // Add platform fee payment
       
@@ -181,14 +178,14 @@ import {
         .setNetwork("preprod")
         .addUtxosFromSelection();
       // Complete, sign, and submit the transaction
-      console.log("Completing transaction...");
+      //console.log("Completing transaction...");
       const completedTx = await unsignedTx.complete();
       
-      console.log("Signing transaction...");
+      //console.log("Signing transaction...");
       const signedTx =  wallet.signTx(completedTx, true);
       
       console.log("Submitting transaction...");
-      const txHash = await wallet.submitTx(signedTx);
+     const txHash = await wallet.submitTx(signedTx);
       
       console.log("Transaction submitted successfully!");
       console.log("Transaction hash:", txHash);
