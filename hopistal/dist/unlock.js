@@ -92,18 +92,25 @@ function unlock_nft(token_name, tx) {
                     console.log("Building transaction...");
                     unsignedTx
                         .txIn(utxoUnlock.input.txHash, utxoUnlock.input.outputIndex, utxoUnlock.output.amount, scriptAddr)
-                        .spendingReferenceTxInInlineDatumPresent()
-                        .spendingReferenceTxInRedeemerValue("")
-                        //.txInInlineDatumPresent()
-                        //.txInRedeemerValue("") // Index 2 for "Unlock"
+                        // .spendingReferenceTxInInlineDatumPresent()
+                        // .spendingReferenceTxInRedeemerValue(mConStr2([]))
+                        .txInInlineDatumPresent()
+                        .txInRedeemerValue(core_1.mConStr2([])) // Index 2 for "Unlock"
                         .txInScript(scriptCbor)
-                        .txOut(walletAddress, [])
+                        .txOut(walletAddress, [{
+                            unit: "c3928d5f3308b9ac91b870c650e4d31d2222a26e34b8823b6d86e35d000de140506f7274666f6c696f",
+                            quantity: "1"
+                        },
+                        {
+                            unit: "lovelace",
+                            quantity: "10000000"
+                        }])
                         .txInCollateral(collateral.input.txHash, collateral.input.outputIndex, collateral.output.amount, collateral.output.address)
                         .requiredSignerHash(userPubKeyHash)
                         .changeAddress(walletAddress)
                         .selectUtxosFrom(utxos)
-                        .setNetwork("preprod");
-                    // .addUtxosFromSelection();
+                        .setNetwork("preprod")
+                        .addUtxosFromSelection();
                     console.log("Transaction built, completing...");
                     return [4 /*yield*/, unsignedTx.complete()];
                 case 3:

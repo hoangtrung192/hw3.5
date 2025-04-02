@@ -73,4 +73,12 @@ export async function getWalletInfoForTx(wallet) {
   const collateral = (await wallet.getCollateral())[0];
   return { utxos, walletAddress, collateral };
 }
+export async function getUtxoForTx(address: string, txHash: string, wallet : any){
+  const utxos: UTxO[] = await wallet.fetchAddressUTxOs(address);
+  const utxo = utxos.find(function (utxo: UTxO) {
+    return utxo.input.txHash === txHash;
+  });
 
+  if (!utxo) throw new Error("No UTXOs found in getUtxoForTx method.");
+  return utxo;
+}

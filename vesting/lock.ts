@@ -15,6 +15,9 @@ import {
   getWalletInfoForTx,
 } from "./common";
 async function main() {
+  const { utxos, walletAddress, collateral } = await getWalletInfoForTx(wallet);
+      console.log("Collateral : " + collateral);
+      console.log("utxos : " + utxos);
   const assets: Asset[] = [
     {
       unit: "lovelace",
@@ -53,7 +56,7 @@ async function main() {
   //   networkId: 0,
   // });
 
-  const lockUntilTimeStamp = new Date().getMinutes() + 1;
+  const lockUntilTimeStamp = new Date().getTime() + 3*60*1000;
 
 
   const beneficiary =
@@ -65,7 +68,7 @@ async function main() {
   //     beneficiary,
   //   );
 
-  const { utxos, walletAddress, collateral } = await getWalletInfoForTx(wallet);
+  //const { utxos, walletAddress, collateral } = await getWalletInfoForTx(wallet);
   const { pubKeyHash: ownerPubKeyHash } = deserializeAddress(walletAddress);
   const { pubKeyHash: beneficiaryPubKeyHash } = deserializeAddress(beneficiary);
 

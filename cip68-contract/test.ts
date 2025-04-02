@@ -5,60 +5,75 @@ import {
     BlockfrostProvider,
     deserializeDatum,
   } from "@meshsdk/core";
-  import { wallet } from './common';
+  import { blockchainProvider, wallet} from "./common";
+ // import { encryptData, decryptData } from "./enCryptAndDecrypt";
+  
   interface ParsedAsset {
     unit: string;  // combined policyId + assetName
     policyId: string;
     assetName: string;
     assetNameHex: string;
     quantity: string;
-    
-
   }
-  interface ParsedMetaData{
+  
+  interface ParsedMetaData {
     name: string;
     image: string;
     _pk: string;
     fingerprint: string;
     totalSupply: string;
-
+    hexRandomCode: string;
   }
-  // Initialize blockchain provider
-  const blockchainProvider = new BlockfrostProvider('preprod2DQWsQjqnzLW9swoBQujfKBIFyYILBiL');
-async function main(){
-    const walletAddress = wallet.getChangeAddress();
+   async function verify_did(wallet: any, key: string, RandomCode: string) {
+    console.log("Verifying DID with RandomCode:", RandomCode);
+    
+    if (!wallet || !key || !RandomCode) {
+        console.error("Missing required parameters for verification");
+        return false;
+    }
+    
+    // Mã hóa RandomCode từ database thành hexRandomCode để so sánh
+   // const encryptedRandomCode = encryptData(RandomCode, key);
+ //   console.log("Encrypted RandomCode from DB:", encryptedRandomCode);
+    
+    const walletAddress = await wallet.getChangeAddress();
+    console.log("Wallet address:", walletAddress);
+    
     const assetsInfoWallet = await blockchainProvider.fetchAddressAssets(walletAddress);
-    const test = await blockchainProvider.fetchAssetMetadata("fc1ebe51de6666367a374d0a06a7b89060634b5442569b9df5e1caaa000de140444944");
-    console.log(test);
-    const parsedAssets: ParsedAsset[] = [];
-    const ParsedMetaData: ParsedMetaData[] = [];
-    for(const [unit, quantity] of Object.entries(assetsInfoWallet)){
-        if(unit === 'lovelace'){
+    console.log("Found assets count:", Object.keys(assetsInfoWallet).length - 1); // -1 for lovelace
+    
+    const { pubKeyHash: userPubkeyHash } = deserializeAddress(walletAddress);
+    console.log("Wallet pubKeyHash:", userPubkeyHash);
+  
+    for (const [unit, quantity] of Object.entries(assetsInfoWallet)) {
+        if (unit === 'lovelace') {
             continue;
         }
-        else{
-            const policyId = unit.slice(0, 56);
-            const assetNameHex = unit.slice(56);
-            //const _pk = unit.substring(0)
-            let _pk = unit.substring(4);
-            let assetName = assetNameHex;
-            assetName = Buffer.from(assetNameHex, 'hex').toString('utf8');
-            if(assetNameHex.startsWith('000de140')){
+  
+        const policyId = unit.slice(0, 56);
+        const assetNameHex = unit.slice(56);
+        console.log("Checking asset:", unit);
+        console.log("Policy ID:", policyId);
+        console.log("Asset name hex:", assetNameHex);
+        
+        
+            let assetName = Buffer.from(assetNameHex, 'hex').toString('utf8');
+            console.log("Asset name decoded:", assetName);
+            
+            // Kiểm tra NFT có đúng định dạng không - loại bỏ kiểm tra này để xem tất cả NFT
+            // if (assetNameHex.startsWith('000de140')) {
+                console.log("Checking NFT metadata");
                 let unitAsset = policyId + assetNameHex;
                 const metadata = await blockchainProvider.fetchAssetMetadata(unitAsset.toString());
-                //console.log("MetaData: " + unitAsset + " assetName : " + assetName);
-                console.log("unit Asset : " + unitAsset);
-                console.log("Metadata : " , metadata);
                 
-
-                        console.log("pubkeyHash : ", deserializeAddress(walletAddress).pubKeyHash);
-                        console.log("pk : " ,metadata._pk);
-                    }
-                
-               
-            }
-        }
-    }
-
-
+                console.log("metadata : " , metadata);
+                console.log("metadata fingerprint : " , metadata.hexRandomCode);
+                const buffer =  Buffer.from("aT5tlxgrC3aSk+DqJxV3Cw==", 'hex').toString('utf8');
+                console.log("buffer : " + buffer);
+}
+    
+}
+async function main(){
+    const bool = await verify_did(wallet, "0000000000000000", "D8MT7RMO");
+}
 main();

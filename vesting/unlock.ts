@@ -12,7 +12,8 @@ import {
   SLOT_CONFIG_NETWORK,
   unixTimeToEnclosingSlot,
   UTxO,
-  Transaction
+  Transaction,
+  slotToBeginUnixTime
 } from "@meshsdk/core";
 import { MeshVestingContract, VestingDatum } from "@meshsdk/contract";
 import {
@@ -32,7 +33,7 @@ async function main() {
     });
 
     const txHash =
-      "71a15a51024826e75a894830af0d6ed8f2b1de81e5574a1c7961562456854d3b";
+      "8c276720b920b20714709bc96a942ceade319bf43a5b0020014405914be0d592";
      //process.argv[2];
     const contractutxos = await blockchainProvider.fetchUTxOs(txHash);
     //console.log("Contract UTXOs:", contractutxos);
@@ -75,6 +76,7 @@ async function main() {
 
     const { scriptAddr, scriptCbor } = getScript();
     const { pubKeyHash } = deserializeAddress(walletAddress);
+    
 //     type Integer = { int: number | bigint };
 //     const byteString = (bytes: string): ByteString => {
 //       // check if the string is a hex string with regex
@@ -94,23 +96,29 @@ async function main() {
 //     export type VestingDatum = ConStr0<
 //   [Integer, BuiltinByteString, BuiltinByteString]
 // >;
-    const datum = deserializeDatum<VestingDatum>(vestingUtxo.output.plutusData!);
+    const datum = deserializeDatum(vestingUtxo.output.plutusData!);
    // console.log("Datum:", datum);
-
-    const invalidBefore = Math.max(
-      unixTimeToEnclosingSlot(
-        Math.min(datum.fields[0].int as number, Date.now() - 15000),
+   const pubkeyCurrent = datum.fields[2].bytes;
+    const invalidBefore1 =
+      unixTimeToEnclosingSlot(Math.min(
+        (datum.fields[0].int as number), Date.now() - 15000),
         SLOT_CONFIG_NETWORK.preprod,
-      ) + 1,
-      1
-    );
-
+      ) + 1;
+      
+      const invalidBefore2 = slotToBeginUnixTime(invalidBefore1, SLOT_CONFIG_NETWORK.preprod);
+     console.log("time : " + invalidBefore1);
+     console.log("time datum : " + (datum.fields[0].int as number));
+    console.log("time 2 : ", invalidBefore2);
+    console.log("preprod : " + SLOT_CONFIG_NETWORK.preprod);
+    console.log("min : " + (Date.now() - 15000));
     const txBuilder = new MeshTxBuilder({
       fetcher: blockchainProvider,
       submitter: blockchainProvider,
     });
-
+    console.log("Network : " , SLOT_CONFIG_NETWORK);
     console.log("Building transaction...");
+    console.log("1. : "  + pubKeyHash);
+    console.log("2. : " + pubkeyCurrent);
     //const signerHash = deserializeAddress(walletAddress).pubKeyHash;
     await txBuilder
       .spendingPlutusScriptV3()
@@ -135,7 +143,9 @@ async function main() {
         collateralOutput.amount,
         collateralOutput.address
       )
-      .invalidBefore(invalidBefore)
+      
+        .invalidBefore(invalidBefore1)
+        
       .requiredSignerHash(pubKeyHash)
       .changeAddress(walletAddress)
       .selectUtxosFrom(utxos)

@@ -37,16 +37,16 @@ async function main(){
         address.substring(0, 5) === "addr1" ? 1 : 0,
       );
       //name token
-      const userInput = "Hello World With Long";
+      const userInput = "Hello World";
 
       const userTokenMetadata = {
         name: userInput,
-        image: "ipfs://QmRzicpReutwCkM6aotuKjErFCUD213DpwPq6ByuzMJaua",
+        image: "ipfs://bafkreideqzlxt33hejgqhldmgzpkyy7d2fsfye5hb2vafn3ysyv6zuzwre",
         mediaType: "image/jpg",
         description: "Hello world - CIP68",
       };
 
-      const cip68Token: Mint = {
+       const cip68Token: Mint = {
         assetName: userInput,
         assetQuantity: "1",
         metadata: userTokenMetadata,

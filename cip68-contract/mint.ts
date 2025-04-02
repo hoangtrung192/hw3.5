@@ -26,9 +26,9 @@ import {
   const BLOCKFROST_API_KEY = 'preprod2DQWsQjqnzLW9swoBQujfKBIFyYILBiL';
   const NETWORK_ID = 0; // 0 = Testnet (Preview, Preprod), 1 = Mainnet
   const PLATFORM_FEE = '1000000'; // 1 ADA in lovelace
-  const TOKEN_NAME = 'Test';
+  const TOKEN_NAME = 'meshjs';
   const MIN_ADA_WITH_TOKEN = '1500000'; // 1.5 ADA
-  const IMAGE_IPFS_HASH = 'ipfs://bafkreihia6lar2ofmpfyuwwmcog7gexlqvwbb2tuhezpouhi4xpvxjju4m';
+  const IMAGE_IPFS_HASH = 'ipfs://bafkreibktdoly7abv5gqg6xn7gskjliyxw3sqflqldznehbh4r3p522p6a';
   
   // Initialize blockchain provider
   const blockchainProvider = new BlockfrostProvider('preprod2DQWsQjqnzLW9swoBQujfKBIFyYILBiL');
@@ -71,12 +71,12 @@ import {
       
       // Define metadata for the token
       const tokenMetadata = {
-        name: TOKEN_NAME + "DID",
+        name: TOKEN_NAME ,
         image: IMAGE_IPFS_HASH,
         mediaType: "image/jpg", 
         description: "My second  CIP68 token DID",
         _pk: userPubKeyHash, // Required by validator
-        check: userPubKeyHash
+        hex: "kasjdiuopwipodpeoiwopioeewppoife",
       };
       
       const assets = blockchainProvider.fetchAssetAddresses(walletAddress);
@@ -120,7 +120,7 @@ import {
       };
       const policyId = resolveScriptHash(mintScriptCbor, "V3");
       const hexAssetName = stringToHex(TOKEN_NAME);
-      
+      console.log("policyid : ", policyId);
       // Start building transaction
       console.log("Building mint transaction...");
       const unsignedTx = txBuilder.mintPlutusScriptV3();

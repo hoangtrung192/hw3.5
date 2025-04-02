@@ -143,7 +143,7 @@ import {
 
     const completedTx = await unsignedTx.complete();
     console.log("Signing transaction ...");
-    const signedTx = wallet.signTx(completedTx, true);
+    const signedTx = await wallet.signTx(completedTx, true);
     console.log("Submiting transaction ...");
     const txHashUpdate = await wallet.submitTx(signedTx);
     console.log("Transaction submitted successfully !");
@@ -161,13 +161,13 @@ import {
       const pubkeyExchange = deserializeAddress(exChange).pubKeyHash;
       const result = await updateTokens([
         {
-          assetName: "Test",
+          assetName: "popo",
           metadata:  {
             _pk: userPubKeyHash,
-            image: "ipfs://bafkreideqzlxt33hejgqhldmgzpkyy7d2fsfye5hb2vafn3ysyv6zuzwre",
-            mediaType: "image/jpg",
-            canbenh: "ung thu",
-           
+           // check: userPubKeyHash,
+            image: "ipfs://bafkreihia6lar2ofmpfyuwwmcog7gexlqvwbb2tuhezpouhi4xpvxjju4m",
+            mediaType: "image/png",
+            description: "hello world",
           }
         }
       ]);

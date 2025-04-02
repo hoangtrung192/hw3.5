@@ -91,12 +91,19 @@ import {
           utxoUnlock.output.amount,
           scriptAddr
         )
-        .spendingReferenceTxInInlineDatumPresent()
-        .spendingReferenceTxInRedeemerValue("")
-        //.txInInlineDatumPresent()
-        //.txInRedeemerValue("") // Index 2 for "Unlock"
+       // .spendingReferenceTxInInlineDatumPresent()
+       // .spendingReferenceTxInRedeemerValue(mConStr2([]))
+        .txInInlineDatumPresent()
+        .txInRedeemerValue(mConStr2([])) // Index 2 for "Unlock"
         .txInScript(scriptCbor)
-        .txOut(walletAddress, [])
+        .txOut(walletAddress, [{
+          unit: "c3928d5f3308b9ac91b870c650e4d31d2222a26e34b8823b6d86e35d000de140506f7274666f6c696f",
+          quantity:"1"
+        }
+          ,{
+          unit: "lovelace",
+          quantity: "10000000",
+        }])
         .txInCollateral(
           collateral.input.txHash,
           collateral.input.outputIndex,
@@ -107,7 +114,7 @@ import {
         .changeAddress(walletAddress)
         .selectUtxosFrom(utxos)
         .setNetwork("preprod")
-       // .addUtxosFromSelection();
+        .addUtxosFromSelection()  ;
         
       console.log("Transaction built, completing...");
       const completeTx = await unsignedTx.complete();
