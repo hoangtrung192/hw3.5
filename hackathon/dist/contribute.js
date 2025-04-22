@@ -38,67 +38,71 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var core_1 = require("@meshsdk/core");
 var adapter_1 = require("./adapter");
-function contribute(receiver, assets, amount) {
+function contribute(admin, assets, amount) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, utxos, walletAddress, collateral, pubkeyContributor, pubkeyReceiver, contributeCompileCode, constributeScriptCbor, scriptAddr, txBuilder, datum, tx, signedTx, TxHash, _b;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var _a, utxos, walletAddress, collateral, pubkeyContributor, pubkeyAdmin, contributeCompileCode, constributeScriptCbor, scriptAddr, txBuilder, datum, tx, signedTx, TxHash, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    _c.trys.push([0, 5, , 6]);
+                    _b.trys.push([0, 6, , 7]);
                     return [4 /*yield*/, adapter_1.getWalletInfoForTx(adapter_1.wallet)];
                 case 1:
-                    _a = _c.sent(), utxos = _a.utxos, walletAddress = _a.walletAddress, collateral = _a.collateral;
+                    _a = _b.sent(), utxos = _a.utxos, walletAddress = _a.walletAddress, collateral = _a.collateral;
                     pubkeyContributor = core_1.deserializeAddress(walletAddress).pubKeyHash;
-                    pubkeyReceiver = core_1.deserializeAddress(receiver).pubKeyHash;
+                    pubkeyAdmin = core_1.deserializeAddress(admin).pubKeyHash;
                     contributeCompileCode = adapter_1.readValidator("contribute.contribute.spend");
-                    constributeScriptCbor = core_1.applyParamsToScript(contributeCompileCode, []);
+                    constributeScriptCbor = core_1.applyParamsToScript(contributeCompileCode, [pubkeyAdmin]);
                     scriptAddr = core_1.serializePlutusScript({ code: constributeScriptCbor, version: "V3" }, undefined, 0).address;
-                    console.log("Script Address : ", scriptAddr);
                     txBuilder = new core_1.MeshTxBuilder({
                         fetcher: adapter_1.blockchainProvider,
                         submitter: adapter_1.blockchainProvider
                     });
-                    datum = core_1.mConStr0([pubkeyContributor, pubkeyReceiver, amount]);
+                    datum = core_1.mConStr0([amount, pubkeyContributor, pubkeyAdmin]);
                     return [4 /*yield*/, txBuilder
                             .spendingPlutusScriptV3()
                             .txOut(scriptAddr, assets)
                             .txOutInlineDatumValue(datum)
+                            //   .txInInlineDatumPresent()
+                            // .txInRedeemerValue(mConStr0([stringToHex("Contribute")]))
                             .changeAddress(walletAddress)
+                            .requiredSignerHash(pubkeyContributor)
                             .selectUtxosFrom(utxos)
-                            .complete()];
+                            .setNetwork("preprod")];
                 case 2:
-                    _c.sent();
-                    tx = txBuilder.txHex;
-                    return [4 /*yield*/, adapter_1.wallet.signTx(tx, true)];
+                    _b.sent();
+                    return [4 /*yield*/, txBuilder.complete()];
                 case 3:
-                    signedTx = _c.sent();
-                    return [4 /*yield*/, adapter_1.wallet.submitTx(signedTx)];
+                    tx = _b.sent();
+                    return [4 /*yield*/, adapter_1.wallet.signTx(tx, true)];
                 case 4:
-                    TxHash = _c.sent();
-                    return [2 /*return*/, TxHash];
+                    signedTx = _b.sent();
+                    return [4 /*yield*/, adapter_1.wallet.submitTx(signedTx)];
                 case 5:
-                    _b = _c.sent();
-                    return [3 /*break*/, 6];
-                case 6: return [2 /*return*/];
+                    TxHash = _b.sent();
+                    return [2 /*return*/, TxHash];
+                case 6:
+                    error_1 = _b.sent();
+                    throw new Error("Error in contribute function: " + error_1);
+                case 7: return [2 /*return*/];
             }
         });
     });
 }
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var receiver, assets, amount, txHash;
+        var admin, assets, amount, txHash;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    receiver = "addr_test1qqwkave5e46pelgysvg6mx0st5zhte7gn79srscs8wv2qp5qkfvca3f7kpx3v3rssm4j97f63v5whrj8yvsx6dac9xrqyqqef6";
+                    admin = "addr_test1qqwkave5e46pelgysvg6mx0st5zhte7gn79srscs8wv2qp5qkfvca3f7kpx3v3rssm4j97f63v5whrj8yvsx6dac9xrqyqqef6";
                     assets = [
                         {
                             unit: "lovelace",
-                            quantity: "30000000"
+                            quantity: "3000000"
                         }
                     ];
-                    amount = 30;
-                    return [4 /*yield*/, contribute(receiver, assets, amount)];
+                    amount = 3;
+                    return [4 /*yield*/, contribute(admin, assets, amount)];
                 case 1:
                     txHash = _a.sent();
                     console.log("Transaction Hash: ", txHash);
@@ -108,3 +112,6 @@ function main() {
     });
 }
 main();
+function requiredSignerHash(pubkeyContributor) {
+    throw new Error("Function not implemented.");
+}

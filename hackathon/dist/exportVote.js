@@ -38,17 +38,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var core_1 = require("@meshsdk/core");
 var adapter_1 = require("./adapter");
-function contributorRefund(txHash) {
+function exportMoney(txHash) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, utxos, walletAddress, collateral, pubkeyContributor, scriptUtxos, scriptUtxo, pubkeyAdmin, datum, contributeCompileCode, constributeScriptCbor, scriptAddr, utxoScript, txBuilder, completedTx, signedTx, txhash, error_1;
+        var walletAddr, _a, utxos, walletAddress, collateral, pubkeyAdmin, scriptUtxos, scriptUtxo, datum, contributeCompileCode, constributeScriptCbor, scriptAddr, txBuilder, completedTx, signedTx, txhash;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 8, , 9]);
+                    walletAddr = "addr_test1qqhey3pqmmfr45d33f3nj0enwsmswhqkhtm3pkm2nzatqyvxj3cwzvwg9fn3mx4h2vc6tt84ch55kdcp04eeeqgdnd0s6wrjxx";
                     return [4 /*yield*/, adapter_1.getWalletInfoForTx(adapter_1.wallet)];
                 case 1:
                     _a = _b.sent(), utxos = _a.utxos, walletAddress = _a.walletAddress, collateral = _a.collateral;
-                    pubkeyContributor = core_1.deserializeAddress(walletAddress).pubKeyHash;
+                    pubkeyAdmin = core_1.deserializeAddress(walletAddress).pubKeyHash;
                     return [4 /*yield*/, adapter_1.blockchainProvider.fetchUTxOs(txHash)];
                 case 2:
                     scriptUtxos = _b.sent();
@@ -56,15 +56,10 @@ function contributorRefund(txHash) {
                         throw new Error("No UTXOs found for the given transaction hash.");
                     }
                     scriptUtxo = scriptUtxos[0];
-                    pubkeyAdmin = core_1.deserializeAddress("addr_test1qqwkave5e46pelgysvg6mx0st5zhte7gn79srscs8wv2qp5qkfvca3f7kpx3v3rssm4j97f63v5whrj8yvsx6dac9xrqyqqef6").pubKeyHash;
                     datum = core_1.deserializeDatum(scriptUtxo.output.plutusData);
-                    contributeCompileCode = adapter_1.readValidator("contribute.contribute.spend");
+                    contributeCompileCode = adapter_1.readValidator("vote.vote.spend");
                     constributeScriptCbor = core_1.applyParamsToScript(contributeCompileCode, [pubkeyAdmin]);
                     scriptAddr = core_1.serializePlutusScript({ code: constributeScriptCbor, version: "V3" }, undefined, 0).address;
-                    return [4 /*yield*/, adapter_1.blockchainProvider.fetchAddressUTxOs(scriptAddr)];
-                case 3:
-                    utxoScript = _b.sent();
-                    console.log("Script Address : ", scriptAddr);
                     txBuilder = new core_1.MeshTxBuilder({
                         fetcher: adapter_1.blockchainProvider,
                         submitter: adapter_1.blockchainProvider
@@ -73,47 +68,40 @@ function contributorRefund(txHash) {
                             .spendingPlutusScriptV3()
                             .txIn(scriptUtxo.input.txHash, scriptUtxo.input.outputIndex, scriptUtxo.output.amount, scriptAddr)
                             .txInInlineDatumPresent()
-                            .txInRedeemerValue(core_1.mConStr0([core_1.stringToHex("Refund")]))
+                            .txInRedeemerValue(core_1.mConStr0([core_1.stringToHex("export")]))
                             .txInScript(constributeScriptCbor)
-                            .txOut(walletAddress, [])
+                            .txOut(walletAddr, [])
                             .txInCollateral(collateral.input.txHash, collateral.input.outputIndex, collateral.output.amount, collateral.output.address)
                             .changeAddress(walletAddress)
-                            .requiredSignerHash(pubkeyContributor)
+                            .requiredSignerHash(pubkeyAdmin)
                             .selectUtxosFrom(utxos)
                             .setNetwork("preprod")
                             .addUtxosFromSelection()];
-                case 4:
+                case 3:
                     _b.sent();
                     return [4 /*yield*/, txBuilder.complete()];
-                case 5:
+                case 4:
                     completedTx = _b.sent();
                     return [4 /*yield*/, adapter_1.wallet.signTx(completedTx, true)];
-                case 6:
+                case 5:
                     signedTx = _b.sent();
                     return [4 /*yield*/, adapter_1.wallet.submitTx(signedTx)];
-                case 7:
+                case 6:
                     txhash = _b.sent();
                     return [2 /*return*/, txhash];
-                case 8:
-                    error_1 = _b.sent();
-                    console.log("Error : ", error_1);
-                    throw error_1;
-                case 9: return [2 /*return*/];
             }
         });
     });
 }
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var txHash, txRefund;
+        var txHash;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    txHash = "3b709cb2cbeaa38968b74a7a6c52acc8983389b781a043ba6c139cea0f472d8b";
-                    return [4 /*yield*/, contributorRefund(txHash)];
+                case 0: return [4 /*yield*/, exportMoney("118ca36996eabeacb6e62bad4e96f77ac94558b0f64f436cb348516023d912fe")];
                 case 1:
-                    txRefund = _a.sent();
-                    console.log("txRefund: ", txRefund);
+                    txHash = _a.sent();
+                    console.log("Transaction Hash : ", txHash);
                     return [2 /*return*/];
             }
         });

@@ -6,6 +6,7 @@ import {
   MeshTxBuilder,
   MeshValue,
   serializePlutusScript,
+  stringToHex,
   Transaction,
 } from "@meshsdk/core";
 
@@ -16,19 +17,19 @@ import {
   wallet,
 } from "./adapter";
 
-async function contribute(receiver: string, assets: any, amount: number) {
+async function contribute(admin: string, assets: any, amount: number) {
   try {
     const { utxos, walletAddress, collateral } = await getWalletInfoForTx(
       wallet,
     );
 
     const pubkeyContributor = deserializeAddress(walletAddress).pubKeyHash;
-    const pubkeyReceiver = deserializeAddress(receiver).pubKeyHash;
+    const pubkeyAdmin = deserializeAddress(admin).pubKeyHash;
 
     const contributeCompileCode = readValidator("contribute.contribute.spend");
     const constributeScriptCbor = applyParamsToScript(
       contributeCompileCode,
-      [],
+      [pubkeyAdmin],
     );
 
     const scriptAddr = serializePlutusScript(
@@ -36,41 +37,50 @@ async function contribute(receiver: string, assets: any, amount: number) {
       undefined,
       0,
     ).address;
-    console.log("Script Address : ", scriptAddr);
+   // console.log("Script Address : ", scriptAddr);
 
     const txBuilder = new MeshTxBuilder({
         fetcher: blockchainProvider,
         submitter: blockchainProvider,
       });
-    const datum = mConStr0([pubkeyContributor, pubkeyReceiver, amount]);
+    const datum = mConStr0([ amount, pubkeyContributor, pubkeyAdmin] );
     
     await txBuilder
     .spendingPlutusScriptV3()
     .txOut(scriptAddr, assets)
     .txOutInlineDatumValue(datum)
+ //   .txInInlineDatumPresent()
+   // .txInRedeemerValue(mConStr0([stringToHex("Contribute")]))
     .changeAddress(walletAddress)
+    .requiredSignerHash(pubkeyContributor)
     .selectUtxosFrom(utxos)
-    .complete();
+    .setNetwork("preprod")
+    
 
-    const tx = txBuilder.txHex;
+    const tx =  await txBuilder.complete();
     const signedTx = await wallet.signTx(tx, true);
     const TxHash = await wallet.submitTx(signedTx);
     
     return TxHash;
-  } catch {
+  } catch(error) {
+    throw new Error("Error in contribute function: " + error);
   }
 }
 async function main() {
-  const receiver =
+  const admin =
     "addr_test1qqwkave5e46pelgysvg6mx0st5zhte7gn79srscs8wv2qp5qkfvca3f7kpx3v3rssm4j97f63v5whrj8yvsx6dac9xrqyqqef6";
     const assets: Asset[] = [
       {
         unit: "lovelace",
-        quantity: "30000000",
+        quantity: "3000000",
       }
     ];
-  const amount = 30;
-  const txHash = await contribute(receiver, assets, amount);
+  const amount = 3;
+  const txHash = await contribute(admin, assets, amount);
   console.log("Transaction Hash: ", txHash);
 }
 main();
+function requiredSignerHash(pubkeyContributor: string) {
+  throw new Error("Function not implemented.");
+}
+

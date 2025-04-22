@@ -39,13 +39,13 @@ import {
       throw new Error("No UTXOs found for the given transaction hash.");
     }
     const scriptUtxo = scriptUtxos[0];
-    
+    const pubkeyAdmin = deserializeAddress("addr_test1qqwkave5e46pelgysvg6mx0st5zhte7gn79srscs8wv2qp5qkfvca3f7kpx3v3rssm4j97f63v5whrj8yvsx6dac9xrqyqqef6").pubKeyHash;
     const datum = deserializeDatum(scriptUtxo.output.plutusData!);
-     console.log("Datum : ", datum);
+   //  console.log("Datum : ", datum);
     const contributeCompileCode = readValidator("contribute.contribute.spend");
     const constributeScriptCbor = applyParamsToScript(
       contributeCompileCode,
-      [],
+      [pubkeyAdmin],
     );
 
     const scriptAddr = serializePlutusScript(
@@ -69,7 +69,8 @@ import {
         scriptAddr
     )
     .txInInlineDatumPresent()
-    .txInRedeemerValue(mConStr0([stringToHex("long")]))
+    .txInRedeemerValue(mConStr0([stringToHex("Refund")]))
+    
     .txInScript(constributeScriptCbor)
     .txOut(walletAddress, [])
     .txInCollateral(
@@ -96,7 +97,7 @@ import {
     }
   }
   async function main(){
-    const txHash = "87515028faf6499102a80fd41c7a686eccf545e0ef98d4ce07c43427ea6f04f0";
+    const txHash = "3b709cb2cbeaa38968b74a7a6c52acc8983389b781a043ba6c139cea0f472d8b";
     const txRefund = await contributorRefund(txHash);
     console.log("txRefund: ", txRefund);
   }
