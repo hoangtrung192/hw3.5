@@ -17,7 +17,7 @@ import {
         const {utxos, walletAddress, collateral} = await getWalletInfoForTx(wallet);
         const {pubKeyHash: userPubKeyHash} = deserializeAddress(walletAddress);     
         const {scriptAddr, scriptCbor} = getScript();
-        const txHashLock = "171ab71ab501efd5c73eb28a8a6fa6fe02357cf0af69c7158fa71c1c9b93ac96"; 
+        const txHashLock = "535150993027f32dfb7f593aa93d8832e25f712daaf2bec612709d30fa2b83fc"; 
         const utxoFetch = await blockchainProvider.fetchUTxOs(txHashLock);
         const utxo = utxoFetch[0];
         const datum = deserializeDatum(utxo.output.plutusData!);

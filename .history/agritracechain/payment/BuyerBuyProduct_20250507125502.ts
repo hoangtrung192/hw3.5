@@ -1,0 +1,37 @@
+import {
+    applyParamsToScript,
+    Asset,
+    BrowserWallet,
+    deserializeAddress,
+    mConStr0,
+    MeshTxBuilder,
+    serializePlutusScript,
+    stringToHex,
+  } from "@meshsdk/core";
+  
+  import {
+    walletA,
+    walletB,
+    blockchainProvider,
+    getTxBuilder,
+    getWalletInfoForTx,
+    submitTx,
+    getFieldsDatum,
+    getUtxoByTxHash,
+    getPubkeyHash,
+    getScripCborAndScriptAddr
+  } from "../general.ts";
+export async function buyerBuyProduct(
+    walletA
+    buyer: string,
+    shopper: string,
+    product_id: string,
+    product_name: string,
+    timeExpire: number,
+    is_paid: number
+){
+    const {utxos, walletAddress, collateral} = await getWalletInfoForTx(walletA);
+
+
+}
+

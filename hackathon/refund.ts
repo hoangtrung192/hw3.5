@@ -69,7 +69,7 @@ import {
         scriptAddr
     )
     .txInInlineDatumPresent()
-    .txInRedeemerValue(mConStr0([stringToHex("Refund")]))
+    .txInRedeemerValue(mConStr0([stringToHex("ExportMoney")]))
     
     .txInScript(constributeScriptCbor)
     .txOut(walletAddress, [])
@@ -97,7 +97,7 @@ import {
     }
   }
   async function main(){
-    const txHash = "3b709cb2cbeaa38968b74a7a6c52acc8983389b781a043ba6c139cea0f472d8b";
+    const txHash = "4633f7dbace5663fdc184812f20fd2933da6faca973ddc4f54e948def297f34d";
     const txRefund = await contributorRefund(txHash);
     console.log("txRefund: ", txRefund);
   }

@@ -35,6 +35,9 @@
     }
   ],
   "definitions": {
+    "ByteArray": {
+      "dataType": "bytes"
+    },
     "Data": {
       "title": "Data",
       "description": "Any Plutus data."
@@ -64,6 +67,10 @@
             {
               "title": "doctor",
               "$ref": "#/definitions/List$VerificationKeyHash"
+            },
+            {
+              "title": "unit",
+              "$ref": "#/definitions/ByteArray"
             }
           ]
         }

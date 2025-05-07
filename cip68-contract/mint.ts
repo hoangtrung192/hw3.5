@@ -26,7 +26,7 @@ import {
   const BLOCKFROST_API_KEY = 'preprod2DQWsQjqnzLW9swoBQujfKBIFyYILBiL';
   const NETWORK_ID = 0; // 0 = Testnet (Preview, Preprod), 1 = Mainnet
   const PLATFORM_FEE = '1000000'; // 1 ADA in lovelace
-  const TOKEN_NAME = 'meshjs';
+  const TOKEN_NAME = 'Test function';
   const MIN_ADA_WITH_TOKEN = '1500000'; // 1.5 ADA
   const IMAGE_IPFS_HASH = 'ipfs://bafkreibktdoly7abv5gqg6xn7gskjliyxw3sqflqldznehbh4r3p522p6a';
   
@@ -92,6 +92,7 @@ import {
         code: storeScriptCbor,
         version: "V3" as "V3",
       };
+      console.log("storeScript : ", storeScript);
       const storeAddress = serializeAddressObj(
         scriptAddress(
           deserializeAddress(serializePlutusScript(storeScript, undefined, 0, false).address).scriptHash,
@@ -100,6 +101,7 @@ import {
         ),
         0,
       );
+      console.log("storeAddress : ", storeAddress);
       const txBuilder = new MeshTxBuilder({
         fetcher: blockchainProvider,
         submitter: blockchainProvider,

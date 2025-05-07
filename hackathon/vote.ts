@@ -37,7 +37,7 @@ async function contribute(admin: string, assets: any, amount: number, vote: stri
       undefined,
       0,
     ).address;
-   // console.log("Script Address : ", scriptAddr);
+    console.log("Script Address : ", scriptAddr);
 
     const txBuilder = new MeshTxBuilder({
         fetcher: blockchainProvider,

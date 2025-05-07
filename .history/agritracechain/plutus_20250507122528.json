@@ -1,0 +1,485 @@
+{
+    "preamble": {
+      "title": "thomas/agritracechain",
+      "description": "Aiken contracts for project 'thomas/agritracechain'",
+      "version": "0.0.0",
+      "plutusVersion": "v3",
+      "compiler": {
+        "name": "Aiken",
+        "version": "v1.1.0+be31a7c"
+      },
+      "license": "Apache-2.0"
+    },
+    "validators": [
+      {
+        "title": "agrtracechain.agritracechain.spend",
+        "datum": {
+          "title": "datum_otp",
+          "schema": {
+            "$ref": "#/definitions/agrtracechain~1Datum"
+          }
+        },
+        "redeemer": {
+          "title": "redeemer",
+          "schema": {
+            "$ref": "#/definitions/agrtracechain~1Redeemer"
+          }
+        },
+        "parameters": [
+          {
+            "title": "codeEncryption",
+            "schema": {
+              "$ref": "#/definitions/ByteArray"
+            }
+          },
+          {
+            "title": "idProduct",
+            "schema": {
+              "$ref": "#/definitions/Int"
+            }
+          },
+          {
+            "title": "receiverConfirm",
+            "schema": {
+              "$ref": "#/definitions/VerificationKeyHash"
+            }
+          },
+          {
+            "title": "price",
+            "schema": {
+              "$ref": "#/definitions/Int"
+            }
+          }
+        ],
+        "compiledCode": "59018f0101003232323232322322322322322533300a3232323232533300f3370e900118081baa001132323253330123370e900018099baa0051323253330173019002153330143370e9000180a9baa00313232323253330183371e9110d557064617465486973746f727900375c603860346ea802c54ccc060c8c8cc00400400c894ccc078004528099299980e19b8f375c604000400829444cc00c00c004c080004dd7180e180e980e980e980e980e980e980e980e980e980e980e980e980e980d1baa004153330183371e0246eb8c070c074c074c074c074c074c074c074c074c074c074c074c074c074c074c074c068dd5002099b87010375a6038603a603a603a603a603a603a603a603a603a603a60346ea80105280a501637586036603800460340026034603460346034603460346034602e6ea8028c060c058dd50018b0b1bae30170013014375400a2c602a602c004602800260226ea800458c048c04c008c044004c044008c03c004c030dd50008a4c26cac6eb4004dd70009bad001375c002ae6955ceaab9e5573eae855d11",
+        "hash": "998c98512ff6bceae80cd26fb9d44cf7cb36e95060d149c8c7e7bc7b"
+      },
+      {
+        "title": "agrtracechain.agritracechain.else",
+        "parameters": [
+          {
+            "title": "codeEncryption",
+            "schema": {
+              "$ref": "#/definitions/ByteArray"
+            }
+          },
+          {
+            "title": "idProduct",
+            "schema": {
+              "$ref": "#/definitions/Int"
+            }
+          },
+          {
+            "title": "receiverConfirm",
+            "schema": {
+              "$ref": "#/definitions/VerificationKeyHash"
+            }
+          },
+          {
+            "title": "price",
+            "schema": {
+              "$ref": "#/definitions/Int"
+            }
+          }
+        ],
+        "compiledCode": "59018f0101003232323232322322322322322533300a3232323232533300f3370e900118081baa001132323253330123370e900018099baa0051323253330173019002153330143370e9000180a9baa00313232323253330183371e9110d557064617465486973746f727900375c603860346ea802c54ccc060c8c8cc00400400c894ccc078004528099299980e19b8f375c604000400829444cc00c00c004c080004dd7180e180e980e980e980e980e980e980e980e980e980e980e980e980e980d1baa004153330183371e0246eb8c070c074c074c074c074c074c074c074c074c074c074c074c074c074c074c074c068dd5002099b87010375a6038603a603a603a603a603a603a603a603a603a603a60346ea80105280a501637586036603800460340026034603460346034603460346034602e6ea8028c060c058dd50018b0b1bae30170013014375400a2c602a602c004602800260226ea800458c048c04c008c044004c044008c03c004c030dd50008a4c26cac6eb4004dd70009bad001375c002ae6955ceaab9e5573eae855d11",
+        "hash": "998c98512ff6bceae80cd26fb9d44cf7cb36e95060d149c8c7e7bc7b"
+      },
+      {
+        "title": "payment.payment.spend",
+        "datum": {
+          "title": "datum_otp",
+          "schema": {
+            "$ref": "#/definitions/payment~1PaymentDatum"
+          }
+        },
+        "redeemer": {
+          "title": "redeemer",
+          "schema": {
+            "$ref": "#/definitions/payment~1Redeemer"
+          }
+        },
+        "parameters": [
+          {
+            "title": "timeCurrent",
+            "schema": {
+              "$ref": "#/definitions/Int"
+            }
+          }
+        ],
+        "compiledCode": "59019b01010032323232323223225333004323232323253330093370e900118051baa001132323253323300d3001300e375400c26464a66602460280042a66601e600660206ea80104c8c8c8c8c8c8c8c8c94ccc060cdc7a4506726566756e64000041533301833001006375c600a60346ea802454ccc060c030dd69801180d1baa00913371002c6eb4c00cc068dd50048a5014a02a66603066e3d22010767657450616964000041533301833001006375c6038603a60346ea802454ccc060c030dd69801180d1baa0091337126eb4c00cc068dd500480b0a5014a02c44646600200200644a66603c00229404c94ccc070cdc79bae302000200414a2266006006002604000246036603860386038603860380024603460366036603660360026eb8c004c058dd50069180c0009bac301630170023015001301530153015301530153015301530123754016602660226ea80105858dd7180900098079baa006370e90000b18079808001180700098059baa00116300c300d002300b001300b00230090013006375400229309b2b1bad0015734aae7555cf2ab9f5742ae881",
+        "hash": "8e60cdd8e06340acac937c61cd45b203fc8e0dc0b3b8ed4b917082bc"
+      },
+      {
+        "title": "payment.payment.else",
+        "parameters": [
+          {
+            "title": "timeCurrent",
+            "schema": {
+              "$ref": "#/definitions/Int"
+            }
+          }
+        ],
+        "compiledCode": "59019b01010032323232323223225333004323232323253330093370e900118051baa001132323253323300d3001300e375400c26464a66602460280042a66601e600660206ea80104c8c8c8c8c8c8c8c8c94ccc060cdc7a4506726566756e64000041533301833001006375c600a60346ea802454ccc060c030dd69801180d1baa00913371002c6eb4c00cc068dd50048a5014a02a66603066e3d22010767657450616964000041533301833001006375c6038603a60346ea802454ccc060c030dd69801180d1baa0091337126eb4c00cc068dd500480b0a5014a02c44646600200200644a66603c00229404c94ccc070cdc79bae302000200414a2266006006002604000246036603860386038603860380024603460366036603660360026eb8c004c058dd50069180c0009bac301630170023015001301530153015301530153015301530123754016602660226ea80105858dd7180900098079baa006370e90000b18079808001180700098059baa00116300c300d002300b001300b00230090013006375400229309b2b1bad0015734aae7555cf2ab9f5742ae881",
+        "hash": "8e60cdd8e06340acac937c61cd45b203fc8e0dc0b3b8ed4b917082bc"
+      },
+      {
+        "title": "product_registration.product_registration.spend",
+        "datum": {
+          "title": "datum_otp",
+          "schema": {
+            "$ref": "#/definitions/product_registration~1ProductDatum"
+          }
+        },
+        "redeemer": {
+          "title": "redeemer",
+          "schema": {
+            "$ref": "#/definitions/product_registration~1Redeemer"
+          }
+        },
+        "compiledCode": "59028c010100323232323232322533300232323232325332330083001300937540042646464a66601666e1d2000300c375400c2646464646464a666028602e004264660020020044464a66602e0042a66602866e1d20003015375401426464646464646464a66603866e3d220108526567697374657200003133001005375c6004603c6ea805c54ccc070cdc7a4506566572696679000031533301c32330010013758604460466046603e6ea8060894ccc084004528099299980f998020041bae302400214a226600600600260480022646464646464a666044603660466ea80084c94ccc08c0104cdc40038008011bad302730243754004002264a666044603660466ea80084c94ccc08c0100084cdc48038009bad3027302437540040022940c094008c060c080dd5181218128009981118118009981119980f180b980f9baa302330240014c0103d87a80004c0103d87980004bd70180f9baa3005301f375400e6eb4c084c088c088c088c088c088c088c088c088c088c078dd50040a501533301c3371e9110655706461746500003133001005375c6004603c6ea802054ccc070cdc7a45085472616e7366657200003133001005375c6004603c6ea80205281119198008008019129998110008a5013253330203371e6eb8c09400801052889980180180098128009181018108009bae3001301b37540284603c0026eb0c070c074008c06c004c06cc06cc06cc06cc06cc06cc06cc05cdd5009180c980b1baa00a161323002301b003375c603200460040042c6eb0c054004c054008dd7180980098098011bae3011001300d375400c2c601e6020004601c00260146ea8008dc3a40042c6016601800460140026014004601000260086ea8004526136565734aae7555cf2ab9f5740ae855d101",
+        "hash": "2326eff2af18db626d2ec56a8a462447d0aee482b9e970fdd002cb8a"
+      },
+      {
+        "title": "product_registration.product_registration.else",
+        "compiledCode": "59028c010100323232323232322533300232323232325332330083001300937540042646464a66601666e1d2000300c375400c2646464646464a666028602e004264660020020044464a66602e0042a66602866e1d20003015375401426464646464646464a66603866e3d220108526567697374657200003133001005375c6004603c6ea805c54ccc070cdc7a4506566572696679000031533301c32330010013758604460466046603e6ea8060894ccc084004528099299980f998020041bae302400214a226600600600260480022646464646464a666044603660466ea80084c94ccc08c0104cdc40038008011bad302730243754004002264a666044603660466ea80084c94ccc08c0100084cdc48038009bad3027302437540040022940c094008c060c080dd5181218128009981118118009981119980f180b980f9baa302330240014c0103d87a80004c0103d87980004bd70180f9baa3005301f375400e6eb4c084c088c088c088c088c088c088c088c088c088c078dd50040a501533301c3371e9110655706461746500003133001005375c6004603c6ea802054ccc070cdc7a45085472616e7366657200003133001005375c6004603c6ea80205281119198008008019129998110008a5013253330203371e6eb8c09400801052889980180180098128009181018108009bae3001301b37540284603c0026eb0c070c074008c06c004c06cc06cc06cc06cc06cc06cc06cc05cdd5009180c980b1baa00a161323002301b003375c603200460040042c6eb0c054004c054008dd7180980098098011bae3011001300d375400c2c601e6020004601c00260146ea8008dc3a40042c6016601800460140026014004601000260086ea8004526136565734aae7555cf2ab9f5740ae855d101",
+        "hash": "2326eff2af18db626d2ec56a8a462447d0aee482b9e970fdd002cb8a"
+      },
+      {
+        "title": "supply_chain.supply_chain.spend",
+        "datum": {
+          "title": "datum_otp",
+          "schema": {
+            "$ref": "#/definitions/supply_chain~1Datum"
+          }
+        },
+        "redeemer": {
+          "title": "redeemer",
+          "schema": {
+            "$ref": "#/definitions/supply_chain~1Redeemer"
+          }
+        },
+        "compiledCode": "5902db010100323232323232322533300232323232325332330083001300937540042646464a66601666e1d2000300c375400c26464646464646464a66602c60320042a66602666e1d200030143754012264646464646464646464a66603a66e3d22010c557064617465537461747573000051533301d33001007375c6004603e6ea802854ccc074cc00c020dd69802180f9baa00a1323371e6eb8c004c080dd50059bae30013020375403246046604800229405280a99980e99b8f4890e5570646174654c6f636174696f6e000051533301d33001007375c6004603e6ea802854ccc074cc00c020dd69802180f9baa00a1323371e6eb8c004c080dd50059bae300130203754032460466048604800229405280a99980e99b8f489115472616e736665724f776e657273686970000051533301d33001007375c6004603e6ea80284cc00c020dd69802180f9baa00a14a02a66603a66e3d220108436f6d706c65746500005133001007375c6004603e6ea80285281119198008008019129998118008a5013253330213371e6eb8c0980080105288998018018009813000918109811181118110009119191919192999810980d18111baa002132533302200413371000e0020046eb4c098c08cdd50010008992999810980d18111baa002132533302200400213371200e0026eb4c098c08cdd50010008a5030240023017301f3754604660480026604260440026604266603a602c603c6ea8c088c08c00530103d87a80004c0103d87980004bd70180f1baa3005301e37540044603e604060406040604060400026eb8c004c068dd50099180e8009bac301b301c002301a001301a301a301a301a301a301a301a301637540226030602a6ea80245858dd7180b800980b8011bae30150013015002375c602600260260046eb8c044004c034dd50030b18079808001180700098051baa002370e90010b1805980600118050009805001180400098021baa00114984d9595cd2ab9d5573caae7d5d02ba15745",
+        "hash": "a64da6d6cc6ce369d9338c6aef403f1ebabf33cd07dc4a0b3ba87c27"
+      },
+      {
+        "title": "supply_chain.supply_chain.else",
+        "compiledCode": "5902db010100323232323232322533300232323232325332330083001300937540042646464a66601666e1d2000300c375400c26464646464646464a66602c60320042a66602666e1d200030143754012264646464646464646464a66603a66e3d22010c557064617465537461747573000051533301d33001007375c6004603e6ea802854ccc074cc00c020dd69802180f9baa00a1323371e6eb8c004c080dd50059bae30013020375403246046604800229405280a99980e99b8f4890e5570646174654c6f636174696f6e000051533301d33001007375c6004603e6ea802854ccc074cc00c020dd69802180f9baa00a1323371e6eb8c004c080dd50059bae300130203754032460466048604800229405280a99980e99b8f489115472616e736665724f776e657273686970000051533301d33001007375c6004603e6ea80284cc00c020dd69802180f9baa00a14a02a66603a66e3d220108436f6d706c65746500005133001007375c6004603e6ea80285281119198008008019129998118008a5013253330213371e6eb8c0980080105288998018018009813000918109811181118110009119191919192999810980d18111baa002132533302200413371000e0020046eb4c098c08cdd50010008992999810980d18111baa002132533302200400213371200e0026eb4c098c08cdd50010008a5030240023017301f3754604660480026604260440026604266603a602c603c6ea8c088c08c00530103d87a80004c0103d87980004bd70180f1baa3005301e37540044603e604060406040604060400026eb8c004c068dd50099180e8009bac301b301c002301a001301a301a301a301a301a301a301a301637540226030602a6ea80245858dd7180b800980b8011bae30150013015002375c602600260260046eb8c044004c034dd50030b18079808001180700098051baa002370e90010b1805980600118050009805001180400098021baa00114984d9595cd2ab9d5573caae7d5d02ba15745",
+        "hash": "a64da6d6cc6ce369d9338c6aef403f1ebabf33cd07dc4a0b3ba87c27"
+      }
+    ],
+    "definitions": {
+      "ByteArray": {
+        "dataType": "bytes"
+      },
+      "Int": {
+        "dataType": "integer"
+      },
+      "List$ByteArray": {
+        "dataType": "list",
+        "items": {
+          "$ref": "#/definitions/ByteArray"
+        }
+      },
+      "List$List$ByteArray": {
+        "dataType": "list",
+        "items": {
+          "$ref": "#/definitions/List$ByteArray"
+        }
+      },
+      "List$VerificationKeyHash": {
+        "dataType": "list",
+        "items": {
+          "$ref": "#/definitions/VerificationKeyHash"
+        }
+      },
+      "VerificationKeyHash": {
+        "title": "VerificationKeyHash",
+        "dataType": "bytes"
+      },
+      "agrtracechain/Datum": {
+        "title": "Datum",
+        "anyOf": [
+          {
+            "title": "Datum",
+            "dataType": "constructor",
+            "index": 0,
+            "fields": [
+              {
+                "title": "product_id",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "farmer",
+                "$ref": "#/definitions/VerificationKeyHash"
+              },
+              {
+                "title": "product_name",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "product_type",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "quantity",
+                "$ref": "#/definitions/Int"
+              },
+              {
+                "title": "unit",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "location",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "harvest_date",
+                "$ref": "#/definitions/Int"
+              },
+              {
+                "title": "certifications",
+                "$ref": "#/definitions/List$ByteArray"
+              },
+              {
+                "title": "registration_date",
+                "$ref": "#/definitions/Int"
+              },
+              {
+                "title": "price",
+                "$ref": "#/definitions/Int"
+              },
+              {
+                "title": "current_status",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "current_location",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "current_handler",
+                "$ref": "#/definitions/VerificationKeyHash"
+              },
+              {
+                "title": "history",
+                "$ref": "#/definitions/List$List$ByteArray"
+              },
+              {
+                "title": "receiver",
+                "$ref": "#/definitions/VerificationKeyHash"
+              }
+            ]
+          }
+        ]
+      },
+      "agrtracechain/Redeemer": {
+        "title": "Redeemer",
+        "anyOf": [
+          {
+            "title": "Redeemer",
+            "dataType": "constructor",
+            "index": 0,
+            "fields": [
+              {
+                "title": "action",
+                "$ref": "#/definitions/ByteArray"
+              }
+            ]
+          }
+        ]
+      },
+      "payment/PaymentDatum": {
+        "title": "PaymentDatum",
+        "anyOf": [
+          {
+            "title": "PaymentDatum",
+            "dataType": "constructor",
+            "index": 0,
+            "fields": [
+              {
+                "title": "buyer",
+                "$ref": "#/definitions/VerificationKeyHash"
+              },
+              {
+                "title": "shopper",
+                "$ref": "#/definitions/VerificationKeyHash"
+              },
+              {
+                "title": "product_id",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "product_name",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "timeExpire",
+                "$ref": "#/definitions/Int"
+              },
+              {
+                "title": "is_paid",
+                "$ref": "#/definitions/Int"
+              }
+            ]
+          }
+        ]
+      },
+      "payment/Redeemer": {
+        "title": "Redeemer",
+        "anyOf": [
+          {
+            "title": "Redeemer",
+            "dataType": "constructor",
+            "index": 0,
+            "fields": [
+              {
+                "title": "action",
+                "$ref": "#/definitions/ByteArray"
+              }
+            ]
+          }
+        ]
+      },
+      "product_registration/ProductDatum": {
+        "title": "ProductDatum",
+        "anyOf": [
+          {
+            "title": "ProductDatum",
+            "dataType": "constructor",
+            "index": 0,
+            "fields": [
+              {
+                "title": "product_id",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "farmer",
+                "$ref": "#/definitions/VerificationKeyHash"
+              },
+              {
+                "title": "product_name",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "product_type",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "quantity",
+                "$ref": "#/definitions/Int"
+              },
+              {
+                "title": "unit",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "location",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "harvest_date",
+                "$ref": "#/definitions/Int"
+              },
+              {
+                "title": "certifications",
+                "$ref": "#/definitions/List$ByteArray"
+              },
+              {
+                "title": "registration_date",
+                "$ref": "#/definitions/Int"
+              }
+            ]
+          }
+        ]
+      },
+      "product_registration/Redeemer": {
+        "title": "Redeemer",
+        "anyOf": [
+          {
+            "title": "Redeemer",
+            "dataType": "constructor",
+            "index": 0,
+            "fields": [
+              {
+                "title": "action",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "product_owner",
+                "$ref": "#/definitions/VerificationKeyHash"
+              },
+              {
+                "title": "verifier",
+                "$ref": "#/definitions/List$VerificationKeyHash"
+              }
+            ]
+          }
+        ]
+      },
+      "supply_chain/Datum": {
+        "title": "Datum",
+        "anyOf": [
+          {
+            "title": "Datum",
+            "dataType": "constructor",
+            "index": 0,
+            "fields": [
+              {
+                "title": "product_id",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "current_status",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "current_location",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "current_handler",
+                "$ref": "#/definitions/VerificationKeyHash"
+              },
+              {
+                "title": "history",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "last_updated",
+                "$ref": "#/definitions/Int"
+              }
+            ]
+          }
+        ]
+      },
+      "supply_chain/Redeemer": {
+        "title": "Redeemer",
+        "anyOf": [
+          {
+            "title": "Redeemer",
+            "dataType": "constructor",
+            "index": 0,
+            "fields": [
+              {
+                "title": "action",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "status",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "new_location",
+                "$ref": "#/definitions/ByteArray"
+              },
+              {
+                "title": "new_handler",
+                "$ref": "#/definitions/VerificationKeyHash"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }

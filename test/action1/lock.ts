@@ -3,7 +3,10 @@ import {
     BlockfrostProvider,
     deserializeAddress,
     mConStr0,
-    MeshTxBuilder
+    MeshTxBuilder,
+    serializeAddressObj,
+    PubKeyAddress
+    ,scriptAddress
   } from "@meshsdk/core";
   import {
     getScript,
@@ -15,19 +18,24 @@ import {
   const blockchainProvider = new BlockfrostProvider("preprod2DQWsQjqnzLW9swoBQujfKBIFyYILBiL");
   async function main(){
     try{
-      
         const {utxos, walletAddress, collateral} = await getWalletInfoForTx(wallet);
         const {pubKeyHash: patientPubKeyHash} = deserializeAddress(walletAddress);
         const {pubKeyHash: doctorPubKeyHash1} = deserializeAddress(doctorAddress1);
         const {pubKeyHash: doctorPubKeyHash2} = deserializeAddress(doctorAddress2);
+        const address = scriptAddress(deserializeAddress(walletAddress).stakeCredentialHash,
+        patientPubKeyHash
+      )
+
+        console.log("addr : ", serializeAddressObj(address));
         const assets: Asset[] = [
             {
-                unit: "c3928d5f3308b9ac91b870c650e4d31d2222a26e34b8823b6d86e35d000de14052656420426f6f6b",
+                unit: "fffe9c9b63d34274939b50ef367f60155af85745c7dd5521f5a07f46000de140444944",
                 quantity: "1",
             },
         ];
+        const unit = "fffe9c9b63d34274939b50ef367f60155af85745c7dd5521f5a07f46000de140444944";
 
-        const datum = mConStr0([patientPubKeyHash, [doctorPubKeyHash1, doctorPubKeyHash2]]);
+        const datum = mConStr0([patientPubKeyHash, [doctorPubKeyHash1, doctorPubKeyHash2], unit]);
         const {scriptAddr, scriptCbor} = getScript();
         const txBuilder = new MeshTxBuilder({
             fetcher: blockchainProvider,
