@@ -1,4 +1,4 @@
-import {applyParamsToScript, Asset, mConStr0, serializePlutusScript, stringToHex, Transaction } from "@meshsdk/core";
+import { Asset, mConStr0, serializePlutusScript, stringToHex, Transaction } from "@meshsdk/core";
 
 import {
     getPubkeyHash,

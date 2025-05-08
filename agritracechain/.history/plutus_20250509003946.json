@@ -1,0 +1,342 @@
+{
+  "preamble": {
+    "title": "thomas/agritracechain",
+    "description": "Aiken contracts for project 'thomas/agritracechain'",
+    "version": "0.0.0",
+    "plutusVersion": "v3",
+    "compiler": {
+      "name": "Aiken",
+      "version": "v1.1.0+be31a7c"
+    },
+    "license": "Apache-2.0"
+  },
+  "validators": [
+    {
+      "title": "agrtracechain.agritracechain.spend",
+      "datum": {
+        "title": "datum_otp",
+        "schema": {
+          "$ref": "#/definitions/agrtracechain~1Datum"
+        }
+      },
+      "redeemer": {
+        "title": "redeemer",
+        "schema": {
+          "$ref": "#/definitions/agrtracechain~1Redeemer"
+        }
+      },
+      "parameters": [
+        {
+          "title": "idProduct",
+          "schema": {
+            "$ref": "#/definitions/Int"
+          }
+        },
+        {
+          "title": "price",
+          "schema": {
+            "$ref": "#/definitions/Int"
+          }
+        }
+      ],
+      "compiledCode": "590132010100323232323232232232253330063232323232533300b3370e900118061baa0011323232533300e3370e900018079baa0051323253330133015002153330103370e900018089baa0031323253330123371e9110d557064617465486973746f727900375c602c60286ea802454ccc0480044cdc39bad3016301730173017301730173014375400401c294058cc88c8cc00400400c894ccc060004528099299980b19b8f375c603400400829444cc00c00c004c068004dd6180a980b180b180b180b180b180b180b180b18099baa00a375c602a602c602c602c60266ea8004c050c048dd50018b0b1bae30130013010375400a2c602260240046020002601a6ea800458c038c03c008c034004c034008c02c004c020dd50008a4c26cac6eb4004dd6800ab9a5573aaae7955cfaba157441",
+      "hash": "07b8eda47e71ff384971bb5797b91fec50ddb936313b688aecc1c9df"
+    },
+    {
+      "title": "agrtracechain.agritracechain.else",
+      "parameters": [
+        {
+          "title": "idProduct",
+          "schema": {
+            "$ref": "#/definitions/Int"
+          }
+        },
+        {
+          "title": "price",
+          "schema": {
+            "$ref": "#/definitions/Int"
+          }
+        }
+      ],
+      "compiledCode": "590132010100323232323232232232253330063232323232533300b3370e900118061baa0011323232533300e3370e900018079baa0051323253330133015002153330103370e900018089baa0031323253330123371e9110d557064617465486973746f727900375c602c60286ea802454ccc0480044cdc39bad3016301730173017301730173014375400401c294058cc88c8cc00400400c894ccc060004528099299980b19b8f375c603400400829444cc00c00c004c068004dd6180a980b180b180b180b180b180b180b180b18099baa00a375c602a602c602c602c60266ea8004c050c048dd50018b0b1bae30130013010375400a2c602260240046020002601a6ea800458c038c03c008c034004c034008c02c004c020dd50008a4c26cac6eb4004dd6800ab9a5573aaae7955cfaba157441",
+      "hash": "07b8eda47e71ff384971bb5797b91fec50ddb936313b688aecc1c9df"
+    },
+    {
+      "title": "payment.payment.spend",
+      "datum": {
+        "title": "datum_otp",
+        "schema": {
+          "$ref": "#/definitions/payment~1PaymentDatum"
+        }
+      },
+      "redeemer": {
+        "title": "redeemer",
+        "schema": {
+          "$ref": "#/definitions/payment~1Redeemer"
+        }
+      },
+      "compiledCode": "59013001010032323232323225333002323232323253330073370e900118041baa0011323232533300a3370e900018059baa00513232533300f30110021533300c3370e900018069baa00313232323232323253330133371e91106726566756e64000011003153330133371e9101076765745061696400001100216375c600860286ea8034cc008010dd7180a980b18099baa00533001003375c600460246ea801088c8cc00400400c894ccc058004528099299980a19b8f375c603000400829444cc00c00c004c0600048c04c004dd618089809180918091809180918091809180918079baa00a3010300e37540062c2c6eb8c03c004c030dd50028b18069807001180600098049baa00116300a300b0023009001300900230070013004375400229309b2b2b9a5573aaae7955cfaba157441",
+      "hash": "d695810b5c9605c76d23038110ee289782ba3c3ec2fafc3ff05e347f"
+    },
+    {
+      "title": "payment.payment.else",
+      "compiledCode": "59013001010032323232323225333002323232323253330073370e900118041baa0011323232533300a3370e900018059baa00513232533300f30110021533300c3370e900018069baa00313232323232323253330133371e91106726566756e64000011003153330133371e9101076765745061696400001100216375c600860286ea8034cc008010dd7180a980b18099baa00533001003375c600460246ea801088c8cc00400400c894ccc058004528099299980a19b8f375c603000400829444cc00c00c004c0600048c04c004dd618089809180918091809180918091809180918079baa00a3010300e37540062c2c6eb8c03c004c030dd50028b18069807001180600098049baa00116300a300b0023009001300900230070013004375400229309b2b2b9a5573aaae7955cfaba157441",
+      "hash": "d695810b5c9605c76d23038110ee289782ba3c3ec2fafc3ff05e347f"
+    }
+  ],
+  "definitions": {
+    "ByteArray": {
+      "dataType": "bytes"
+    },
+    "Int": {
+      "dataType": "integer"
+    },
+    "Option$StakeCredential": {
+      "title": "Option",
+      "anyOf": [
+        {
+          "title": "Some",
+          "description": "An optional value.",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "$ref": "#/definitions/StakeCredential"
+            }
+          ]
+        },
+        {
+          "title": "None",
+          "description": "Nothing.",
+          "dataType": "constructor",
+          "index": 1,
+          "fields": []
+        }
+      ]
+    },
+    "PaymentCredential": {
+      "title": "PaymentCredential",
+      "description": "A general structure for representing an on-chain `Credential`.\n\n Credentials are always one of two kinds: a direct public/private key\n pair, or a script (native or Plutus).",
+      "anyOf": [
+        {
+          "title": "VerificationKey",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "$ref": "#/definitions/VerificationKeyHash"
+            }
+          ]
+        },
+        {
+          "title": "Script",
+          "dataType": "constructor",
+          "index": 1,
+          "fields": [
+            {
+              "$ref": "#/definitions/ScriptHash"
+            }
+          ]
+        }
+      ]
+    },
+    "ScriptHash": {
+      "title": "ScriptHash",
+      "dataType": "bytes"
+    },
+    "StakeCredential": {
+      "title": "StakeCredential",
+      "description": "Represent a type of object that can be represented either inline (by hash)\n or via a reference (i.e. a pointer to an on-chain location).\n\n This is mainly use for capturing pointers to a stake credential\n registration certificate in the case of so-called pointer addresses.",
+      "anyOf": [
+        {
+          "title": "Inline",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "$ref": "#/definitions/cardano~1address~1Credential"
+            }
+          ]
+        },
+        {
+          "title": "Pointer",
+          "dataType": "constructor",
+          "index": 1,
+          "fields": [
+            {
+              "title": "slot_number",
+              "$ref": "#/definitions/Int"
+            },
+            {
+              "title": "transaction_index",
+              "$ref": "#/definitions/Int"
+            },
+            {
+              "title": "certificate_index",
+              "$ref": "#/definitions/Int"
+            }
+          ]
+        }
+      ]
+    },
+    "VerificationKeyHash": {
+      "title": "VerificationKeyHash",
+      "dataType": "bytes"
+    },
+    "agrtracechain/Datum": {
+      "title": "Datum",
+      "anyOf": [
+        {
+          "title": "Datum",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "title": "farmer",
+              "$ref": "#/definitions/cardano~1address~1Address"
+            },
+            {
+              "title": "current_handler",
+              "$ref": "#/definitions/VerificationKeyHash"
+            },
+            {
+              "title": "next_handler",
+              "$ref": "#/definitions/VerificationKeyHash"
+            },
+            {
+              "title": "creator",
+              "$ref": "#/definitions/VerificationKeyHash"
+            },
+            {
+              "title": "data",
+              "$ref": "#/definitions/ByteArray"
+            },
+            {
+              "title": "amount",
+              "$ref": "#/definitions/Int"
+            }
+          ]
+        }
+      ]
+    },
+    "agrtracechain/Redeemer": {
+      "title": "Redeemer",
+      "anyOf": [
+        {
+          "title": "Redeemer",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "title": "action",
+              "$ref": "#/definitions/ByteArray"
+            }
+          ]
+        }
+      ]
+    },
+    "cardano/address/Address": {
+      "title": "Address",
+      "description": "A Cardano `Address` typically holding one or two credential references.\n\n Note that legacy bootstrap addresses (a.k.a. 'Byron addresses') are\n completely excluded from Plutus contexts. Thus, from an on-chain\n perspective only exists addresses of type 00, 01, ..., 07 as detailed\n in [CIP-0019 :: Shelley Addresses](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0019/#shelley-addresses).",
+      "anyOf": [
+        {
+          "title": "Address",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "title": "payment_credential",
+              "$ref": "#/definitions/PaymentCredential"
+            },
+            {
+              "title": "stake_credential",
+              "$ref": "#/definitions/Option$StakeCredential"
+            }
+          ]
+        }
+      ]
+    },
+    "cardano/address/Credential": {
+      "title": "Credential",
+      "description": "A general structure for representing an on-chain `Credential`.\n\n Credentials are always one of two kinds: a direct public/private key\n pair, or a script (native or Plutus).",
+      "anyOf": [
+        {
+          "title": "VerificationKey",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "$ref": "#/definitions/VerificationKeyHash"
+            }
+          ]
+        },
+        {
+          "title": "Script",
+          "dataType": "constructor",
+          "index": 1,
+          "fields": [
+            {
+              "$ref": "#/definitions/ScriptHash"
+            }
+          ]
+        }
+      ]
+    },
+    "payment/PaymentDatum": {
+      "title": "PaymentDatum",
+      "anyOf": [
+        {
+          "title": "PaymentDatum",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "title": "buyer",
+              "$ref": "#/definitions/VerificationKeyHash"
+            },
+            {
+              "title": "shopper",
+              "$ref": "#/definitions/VerificationKeyHash"
+            },
+            {
+              "title": "product_id",
+              "$ref": "#/definitions/ByteArray"
+            },
+            {
+              "title": "product_name",
+              "$ref": "#/definitions/ByteArray"
+            },
+            {
+              "title": "timeExpire",
+              "$ref": "#/definitions/Int"
+            },
+            {
+              "title": "is_paid",
+              "$ref": "#/definitions/Int"
+            },
+            {
+              "title": "price",
+              "$ref": "#/definitions/Int"
+            }
+          ]
+        }
+      ]
+    },
+    "payment/Redeemer": {
+      "title": "Redeemer",
+      "anyOf": [
+        {
+          "title": "Redeemer",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "title": "action",
+              "$ref": "#/definitions/ByteArray"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

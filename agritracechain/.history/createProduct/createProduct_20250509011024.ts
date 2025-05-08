@@ -1,4 +1,4 @@
-import {applyParamsToScript, Asset, mConStr0, serializePlutusScript, stringToHex, Transaction } from "@meshsdk/core";
+import { Asset, mConStr0, serializePlutusScript, stringToHex, Transaction } from "@meshsdk/core";
 
 import {
     getPubkeyHash,
@@ -9,7 +9,7 @@ import {
     walletA,
     walletB,
 } from "../general.ts";
-//import { applyParamsToScript } from "@meshsdk/core-cst";
+import { applyParamsToScript } from "@meshsdk/core-cst";
 
 async function createProduct(
     walletSMCCreate: any,

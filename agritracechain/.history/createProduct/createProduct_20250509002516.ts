@@ -1,15 +1,13 @@
-import {applyParamsToScript, Asset, mConStr0, serializePlutusScript, stringToHex, Transaction } from "@meshsdk/core";
+import { Asset, mConStr0, serializePlutusScript, stringToHex, Transaction } from "@meshsdk/core";
 
 import {
     getPubkeyHash,
     getScripCborAndScriptAddr,
     getTxBuilder,
     getWalletInfoForTx,
-    readValidator,
     walletA,
     walletB,
 } from "../general.ts";
-//import { applyParamsToScript } from "@meshsdk/core-cst";
 
 async function createProduct(
     walletSMCCreate: any,
@@ -45,15 +43,15 @@ async function createProduct(
         // Lấy thông tin SMC -> dựa vào dữ liệu nhập
         const pubKeyCurrentHandler = getPubkeyHash(currentHandler);
         const compileCode = readValidator("agrtracechain.agritracechain.spend");
-    const scriptCbor = applyParamsToScript(
-        compileCode,
-        [idProduct, price]
-    );
-    const scriptAddr = serializePlutusScript(
-        { code: scriptCbor, version: "V3" },
-        undefined,
-        0,
-    ).address;
+        const scriptCbor = applyParamsToScript(
+            compileCode,
+            [idProduct, price],
+        );
+        const scriptAddr = serializePlutusScript(
+            { code: scriptCbor, version: "V3" },
+            undefined,
+            0,
+        ).address;
         console.log("scriptAddr: ", scriptAddr);
         console.log("scriptCbor: ", scriptCbor); //log để kiểm tra khởi tạo chuẩn chưa
 
@@ -70,7 +68,7 @@ async function createProduct(
             stringToHex(addrFarmer),
             pubKeyCurrentHandler,
             pubKeyNextHandler,
-            pubKeyWalletSMCCreate,
+            pubKeyWalletCreator,
             stringToHex(data),
             price,
         ]);
