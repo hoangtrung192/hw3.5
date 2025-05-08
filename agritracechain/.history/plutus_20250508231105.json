@@ -39,8 +39,8 @@
           }
         }
       ],
-      "compiledCode": "590132010100323232323232232232253330063232323232533300b3370e900118061baa0011323232533300e3370e900018079baa0051323253330133015002153330103370e900018089baa0031323253330123371e9110d557064617465486973746f727900375c602c60286ea802454ccc0480044cdc39bad3016301730173017301730173014375400401c294058cc88c8cc00400400c894ccc060004528099299980b19b8f375c603400400829444cc00c00c004c068004dd6180a980b180b180b180b180b180b180b180b18099baa00a375c602a602c602c602c60266ea8004c050c048dd50018b0b1bae30130013010375400a2c602260240046020002601a6ea800458c038c03c008c034004c034008c02c004c020dd50008a4c26cac6eb4004dd6800ab9a5573aaae7955cfaba157441",
-      "hash": "07b8eda47e71ff384971bb5797b91fec50ddb936313b688aecc1c9df"
+      "compiledCode": "59012e010100323232323232232232253330063232323232533300b3370e900118061baa0011323232533300e3370e900018079baa0051323253330133015002153330103370e900018089baa0031323253330123371e9110d557064617465486973746f727900375c602c60286ea802454ccc0480044cdc39bad301630173017301730173014375400401c294058cc88c8cc00400400c894ccc060004528099299980b19b8f375c603400400829444cc00c00c004c068004dd6180a980b180b180b180b180b180b180b180b18099baa00a375c602a602c602c60266ea8004c050c048dd50018b0b1bae30130013010375400a2c602260240046020002601a6ea800458c038c03c008c034004c034008c02c004c020dd50008a4c26cac6eb4004dd6800ab9a5573aaae7955cfaba157441",
+      "hash": "bf18013a9db005123d5b991edb0b1b87f12f82da4cb42c3f7d2501b3"
     },
     {
       "title": "agrtracechain.agritracechain.else",
@@ -58,8 +58,8 @@
           }
         }
       ],
-      "compiledCode": "590132010100323232323232232232253330063232323232533300b3370e900118061baa0011323232533300e3370e900018079baa0051323253330133015002153330103370e900018089baa0031323253330123371e9110d557064617465486973746f727900375c602c60286ea802454ccc0480044cdc39bad3016301730173017301730173014375400401c294058cc88c8cc00400400c894ccc060004528099299980b19b8f375c603400400829444cc00c00c004c068004dd6180a980b180b180b180b180b180b180b180b18099baa00a375c602a602c602c602c60266ea8004c050c048dd50018b0b1bae30130013010375400a2c602260240046020002601a6ea800458c038c03c008c034004c034008c02c004c020dd50008a4c26cac6eb4004dd6800ab9a5573aaae7955cfaba157441",
-      "hash": "07b8eda47e71ff384971bb5797b91fec50ddb936313b688aecc1c9df"
+      "compiledCode": "59012e010100323232323232232232253330063232323232533300b3370e900118061baa0011323232533300e3370e900018079baa0051323253330133015002153330103370e900018089baa0031323253330123371e9110d557064617465486973746f727900375c602c60286ea802454ccc0480044cdc39bad301630173017301730173014375400401c294058cc88c8cc00400400c894ccc060004528099299980b19b8f375c603400400829444cc00c00c004c068004dd6180a980b180b180b180b180b180b180b180b18099baa00a375c602a602c602c60266ea8004c050c048dd50018b0b1bae30130013010375400a2c602260240046020002601a6ea800458c038c03c008c034004c034008c02c004c020dd50008a4c26cac6eb4004dd6800ab9a5573aaae7955cfaba157441",
+      "hash": "bf18013a9db005123d5b991edb0b1b87f12f82da4cb42c3f7d2501b3"
     },
     {
       "title": "payment.payment.spend",
@@ -91,94 +91,6 @@
     "Int": {
       "dataType": "integer"
     },
-    "Option$StakeCredential": {
-      "title": "Option",
-      "anyOf": [
-        {
-          "title": "Some",
-          "description": "An optional value.",
-          "dataType": "constructor",
-          "index": 0,
-          "fields": [
-            {
-              "$ref": "#/definitions/StakeCredential"
-            }
-          ]
-        },
-        {
-          "title": "None",
-          "description": "Nothing.",
-          "dataType": "constructor",
-          "index": 1,
-          "fields": []
-        }
-      ]
-    },
-    "PaymentCredential": {
-      "title": "PaymentCredential",
-      "description": "A general structure for representing an on-chain `Credential`.\n\n Credentials are always one of two kinds: a direct public/private key\n pair, or a script (native or Plutus).",
-      "anyOf": [
-        {
-          "title": "VerificationKey",
-          "dataType": "constructor",
-          "index": 0,
-          "fields": [
-            {
-              "$ref": "#/definitions/VerificationKeyHash"
-            }
-          ]
-        },
-        {
-          "title": "Script",
-          "dataType": "constructor",
-          "index": 1,
-          "fields": [
-            {
-              "$ref": "#/definitions/ScriptHash"
-            }
-          ]
-        }
-      ]
-    },
-    "ScriptHash": {
-      "title": "ScriptHash",
-      "dataType": "bytes"
-    },
-    "StakeCredential": {
-      "title": "StakeCredential",
-      "description": "Represent a type of object that can be represented either inline (by hash)\n or via a reference (i.e. a pointer to an on-chain location).\n\n This is mainly use for capturing pointers to a stake credential\n registration certificate in the case of so-called pointer addresses.",
-      "anyOf": [
-        {
-          "title": "Inline",
-          "dataType": "constructor",
-          "index": 0,
-          "fields": [
-            {
-              "$ref": "#/definitions/cardano~1address~1Credential"
-            }
-          ]
-        },
-        {
-          "title": "Pointer",
-          "dataType": "constructor",
-          "index": 1,
-          "fields": [
-            {
-              "title": "slot_number",
-              "$ref": "#/definitions/Int"
-            },
-            {
-              "title": "transaction_index",
-              "$ref": "#/definitions/Int"
-            },
-            {
-              "title": "certificate_index",
-              "$ref": "#/definitions/Int"
-            }
-          ]
-        }
-      ]
-    },
     "VerificationKeyHash": {
       "title": "VerificationKeyHash",
       "dataType": "bytes"
@@ -191,10 +103,6 @@
           "dataType": "constructor",
           "index": 0,
           "fields": [
-            {
-              "title": "farmer",
-              "$ref": "#/definitions/cardano~1address~1Address"
-            },
             {
               "title": "current_handler",
               "$ref": "#/definitions/VerificationKeyHash"
@@ -230,53 +138,6 @@
             {
               "title": "action",
               "$ref": "#/definitions/ByteArray"
-            }
-          ]
-        }
-      ]
-    },
-    "cardano/address/Address": {
-      "title": "Address",
-      "description": "A Cardano `Address` typically holding one or two credential references.\n\n Note that legacy bootstrap addresses (a.k.a. 'Byron addresses') are\n completely excluded from Plutus contexts. Thus, from an on-chain\n perspective only exists addresses of type 00, 01, ..., 07 as detailed\n in [CIP-0019 :: Shelley Addresses](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0019/#shelley-addresses).",
-      "anyOf": [
-        {
-          "title": "Address",
-          "dataType": "constructor",
-          "index": 0,
-          "fields": [
-            {
-              "title": "payment_credential",
-              "$ref": "#/definitions/PaymentCredential"
-            },
-            {
-              "title": "stake_credential",
-              "$ref": "#/definitions/Option$StakeCredential"
-            }
-          ]
-        }
-      ]
-    },
-    "cardano/address/Credential": {
-      "title": "Credential",
-      "description": "A general structure for representing an on-chain `Credential`.\n\n Credentials are always one of two kinds: a direct public/private key\n pair, or a script (native or Plutus).",
-      "anyOf": [
-        {
-          "title": "VerificationKey",
-          "dataType": "constructor",
-          "index": 0,
-          "fields": [
-            {
-              "$ref": "#/definitions/VerificationKeyHash"
-            }
-          ]
-        },
-        {
-          "title": "Script",
-          "dataType": "constructor",
-          "index": 1,
-          "fields": [
-            {
-              "$ref": "#/definitions/ScriptHash"
             }
           ]
         }
