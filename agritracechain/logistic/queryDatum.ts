@@ -20,13 +20,24 @@ function hexToString(hex: string): string {
     return str;
   }
 async function main(){
-    const txHash = "aad13f671829f4ab231a1c9353c07d320e6f359b576ac93f38af615a87d0ad25";
+    const txHash = "11dc0bd0a6e730498b94f232e044fe0a58df2586ca07a358dc09058add0aac78";
     const utxo = await getUtxoByTxHash(txHash);
     console.log("UTXO : ", utxo);
     if(!utxo) {
         throw new Error("No UTXOs found for the given transaction hash.");
     }
-    const datum =hexToString(getFieldsDatum(2, utxo, "bytes"));
+    const datum =hexToString(getFieldsDatum(0, utxo, "bytes"));
+    const datum1 =getFieldsDatum(1, utxo, "bytes");
+    const datum2 =getFieldsDatum(2, utxo, "bytes");
+    const datum3 =getFieldsDatum(3, utxo, "bytes");
+    const datum4 =hexToString(getFieldsDatum(4, utxo, "bytes"));
+    const datum5 =getFieldsDatum(5, utxo, "int");
     console.log("Datum : ", datum);
+    console.log("Datum : ", datum1);
+    console.log("Datum : ", datum2);
+    console.log("Datum : ", datum3);
+    console.log("Datum : ", datum4);
+    console.log("Datum : ", datum5);
+ //   console.log("Datum : ", datum);
 }
 main();
