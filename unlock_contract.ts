@@ -8,9 +8,7 @@ import {
   import { wallet, blockchainProvider } from "./test_provider";
   import type { PlutusScript, } from "@meshsdk/core";
   async function main() {
-    //serializePlustusScript giai ma cbor
-    //script ma code tu plutus
-  // script
+    
 const script: PlutusScript = {
     code: '4e4d01000033222220051200120011',
     version: "V2",
