@@ -8,6 +8,3 @@ MeshSDK Tutorial
 ----
 --
 -
---
--
-
