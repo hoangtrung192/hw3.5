@@ -13,9 +13,10 @@ import { demoPlutusAlwaysSucceedScript, oneTimeMintingPolicy } from "./common";
 async function main(){
     
     //get address used
-    const usedAdress = await wallet.getChangeAddress();
-    const address = usedAdress;
-
+    const address = await wallet.getChangeAddress();
+    //const  = usedAdress;
+    console.log("balance: ", await wallet.getBalance())
+    console.log("address: ", address);
     // check address 
     if(address == undefined){
         throw "Adress not found";
@@ -84,4 +85,4 @@ async function main(){
 
 }
 main().catch(console.error);
-//npx tsx CIP68/mintCIP68.ts
+//npx tsx CIP68/mintCIP68.ts// FILE CAP NHAT DAU ANH NHI 
