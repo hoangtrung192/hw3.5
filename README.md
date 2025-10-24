@@ -1,8 +1,2 @@
-MeshSDK Tutorial
---typescript
--
--
--
----
--
---
+Mint CIP68 Successful !
+TxHash : 6c768899c125afce8e62cae2b315556966c6b3ef725097f5dae2cab48ad7e16c
