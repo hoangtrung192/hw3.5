@@ -1,6 +1,4 @@
 # Sensitive files
-owner.seed
-owner.addr
 .env
 
 # Node modules
